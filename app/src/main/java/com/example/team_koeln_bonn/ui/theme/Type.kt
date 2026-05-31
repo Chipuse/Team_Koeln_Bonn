@@ -6,29 +6,36 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-// Set of Material typography styles to start with
+// Typography für Texte einfach einheitlicher Sinn, natürlich mit Barrierefrei und Lesbar :)
 val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
-    titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
+
+    // Hauptüberschrift
+    headlineLarge = TextStyle(
+        fontWeight = FontWeight.Bold,
+        fontSize = 28.sp
     ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
+
+    // Titel auf Screens/Cards
+    titleLarge = TextStyle(
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 22.sp
+    ),
+
+    // Standard-Fließtext
+    bodyLarge = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = 18.sp
+    ),
+
+    // Kleinere-Beschreibungen
+    bodyMedium = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp
+    ),
+
+    // Buttons/Navigation
+    labelLarge = TextStyle(
         fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
+        fontSize = 16.sp
     )
-    */
 )
