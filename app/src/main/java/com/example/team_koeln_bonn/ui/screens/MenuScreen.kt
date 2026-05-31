@@ -30,13 +30,6 @@ fun MenuScreen() {
             .padding(horizontal = 28.dp, vertical = 32.dp)
     ) {
 
-        Icon(
-            imageVector = Icons.Outlined.Menu,
-            contentDescription = "Menü",
-            tint = NavActive,
-            modifier = Modifier.size(34.dp)
-        )
-
         Spacer(modifier = Modifier.height(40.dp))
 
 

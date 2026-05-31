@@ -27,14 +27,6 @@ fun SosScreen() {
             .padding(horizontal = 28.dp, vertical = 32.dp)
     ) {
 
-        // Menü Icon
-        Icon(
-            imageVector = Icons.Outlined.Menu,
-            contentDescription = "Menü",
-            tint = NavActive,
-            modifier = Modifier.size(34.dp)
-        )
-
         Spacer(modifier = Modifier.height(42.dp))
 
         // SOS Bars
