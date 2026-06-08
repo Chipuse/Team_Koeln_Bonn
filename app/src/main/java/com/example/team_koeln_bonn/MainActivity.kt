@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                             SosScreen()
                         }
                     },
-                    bottomBar = {
+                    bottomBar = {2
                         OurBottomBar()
                     }
                 )
