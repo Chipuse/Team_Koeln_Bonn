@@ -56,4 +56,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation("androidx.compose.material:material-icons-extended")
+
+    //open Street map Libraries
+    implementation("org.osmdroid:osmdroid-android:6.1.20")
 }

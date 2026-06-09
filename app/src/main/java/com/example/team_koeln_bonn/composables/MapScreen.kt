@@ -1,19 +1,14 @@
 package com.example.team_koeln_bonn.composables
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.viewinterop.AndroidView
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.MapView
+import org.osmdroid.views.overlay.Marker
 
 @Composable
 @Preview
@@ -21,41 +16,36 @@ fun DisplayMapScreen(){
     MapScreen()
 }
 
-//https://developer.android.com/develop/sensors-and-location/location/maps-and-places
-
 @Composable
 fun MapScreen(modifier : Modifier = Modifier){
-    Scaffold(
-        modifier = Modifier,
-        //top app bar content
-        topBar = {
-            OurTopBar()
-        },
-        floatingActionButton = {
+    //da die osm library nur views unterstützt müssen wir per android view das einfügen:
+    AndroidView(
+        modifier = Modifier.fillMaxSize(),
+        factory = { context ->
+            val mapView = MapView(context)
+            mapView.setTileSource(TileSourceFactory.MAPNIK)
+            mapView.setMultiTouchControls(true)
+            mapView.controller.setZoom(15.0)
 
-        },
+            val startPoint = GeoPoint(51.023097, 7.562391)
+            mapView.controller.setCenter(startPoint)
 
-        //here belong the contents of the main window in the scaffold
-        content = {
-                paddingValues ->
-            Box(
-                modifier = Modifier
-                    .padding(paddingValues)
-                    .fillMaxSize()
-                    .consumeWindowInsets(paddingValues)
-            ) {
-                IconButton(
-                    onClick = {}) {
-                    Icon(Icons.Filled.Menu, contentDescription = "Icon 1")
-                }
-                Text(
-                    "Title",
-                    style = MaterialTheme.typography.titleMedium
-                )
-            }
-        },
-        bottomBar = {
-            OurBottomBar()
+            var startMarker = Marker(mapView)
+            startMarker.position = startPoint
+            startMarker.title = "Start Position"
+
+            mapView.overlays.add(startMarker)
+            mapView
         }
     )
 }
+
+/*
+fun MapScreen(){
+    Image(
+        painter = painterResource((R.drawable.map_placeholder.png)),
+        contentDescription = null,
+        modifier = Modifier.fillMaxSize()
+    )
+}
+*/

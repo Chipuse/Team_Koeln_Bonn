@@ -1,5 +1,6 @@
 package com.example.team_koeln_bonn.composables
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -82,7 +83,9 @@ fun OurBottomBar(modifier : Modifier = Modifier){
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             IconButton(
-                onClick = {}) {
+                onClick = {
+                    Log.d("test", "Message")
+                }) {
                 Icon(Icons.Filled.Person, contentDescription = "Icon 1")
             }
             IconButton(onClick = {}) {
@@ -119,7 +122,9 @@ fun MainScaffold(modifier : Modifier = Modifier, mainContent : @Composable () ->
                     .consumeWindowInsets(paddingValues)
             ) {
                 IconButton(
-                    onClick = {}) {
+                    onClick = {
+
+                    }) {
                     Icon(Icons.Filled.Menu, contentDescription = "Icon 1")
                 }
                 Text(
