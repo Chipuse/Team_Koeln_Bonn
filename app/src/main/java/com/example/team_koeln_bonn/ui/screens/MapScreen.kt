@@ -1,4 +1,4 @@
-package com.example.team_koeln_bonn.composables
+package com.example.team_koeln_bonn.ui.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
