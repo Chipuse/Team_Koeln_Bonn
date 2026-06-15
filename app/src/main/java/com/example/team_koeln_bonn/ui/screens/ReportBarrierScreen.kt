@@ -55,7 +55,8 @@ fun ReportBarrierScreen() {
         Card(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .width(350.dp),
+                .width(350.dp)
+                .height(470.dp),
             colors = CardDefaults.cardColors(
                 containerColor = Color(0xFFEFEFEF)
             )
@@ -99,6 +100,7 @@ fun ReportBarrierScreen() {
                 ReportOption("Sonstiges")
 
                 Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.weight(1f))
 
                 //Navigation unten weiter und zurück
                 Row(

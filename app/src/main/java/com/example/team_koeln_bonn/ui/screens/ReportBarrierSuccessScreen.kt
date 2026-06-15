@@ -53,14 +53,17 @@ fun ReportBarrierSuccessScreen() {
         Card(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .width(350.dp),
+                .width(350.dp)
+                .height(470.dp),
             colors = CardDefaults.cardColors(
                 containerColor = Color(0xFFEFEFEF)
             )
         ) {
             //INhalt der Card
             Column(
-                modifier = Modifier.padding(24.dp)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(24.dp)
             ) {
                 // Titel + Glocke
                 Row(
@@ -88,12 +91,30 @@ fun ReportBarrierSuccessScreen() {
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "zurück zur Startseite"
+                )
+
+                Spacer(modifier = Modifier.width(6.dp))
+
+                Text(
+                    text = "zurück zur Startseite",
+                    fontSize = 18.sp
+                )
             }
         }
     }
+    }
 }
 
-//Es kommen noch Checkboxen, Buttons, Navigation etc. später.
+
 
 
 @Preview (showBackground = true)
