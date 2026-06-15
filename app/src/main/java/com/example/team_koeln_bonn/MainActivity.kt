@@ -22,7 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.team_koeln_bonn.composables.MapScreen
 import com.example.team_koeln_bonn.composables.OurBottomBar
 import com.example.team_koeln_bonn.composables.OurTopBar
-import com.example.team_koeln_bonn.composables.createMap
 import com.example.team_koeln_bonn.ui.screens.MenuScreen
 import com.example.team_koeln_bonn.ui.screens.SosScreen
 import com.example.team_koeln_bonn.ui.theme.Team_Koeln_BonnTheme
