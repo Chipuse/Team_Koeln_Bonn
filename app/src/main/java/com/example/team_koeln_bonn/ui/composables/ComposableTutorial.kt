@@ -1,4 +1,4 @@
-package com.example.team_koeln_bonn.composables
+package com.example.team_koeln_bonn.ui.composables
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column

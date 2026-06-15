@@ -1,4 +1,4 @@
-package com.example.team_koeln_bonn.composables
+package com.example.team_koeln_bonn.ui.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -60,7 +60,7 @@ fun CommunityChat(modifier : Modifier = Modifier){
             }
         },
         bottomBar = {
-            OurBottomBar()
+            OurTopBar()
         }
     )
 }
