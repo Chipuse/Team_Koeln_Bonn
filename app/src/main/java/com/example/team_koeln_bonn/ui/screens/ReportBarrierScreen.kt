@@ -14,8 +14,10 @@ import androidx.compose.material.icons.filled.Notifications
  import androidx.compose.ui.text.font.FontWeight
  import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.material.icons.filled.ArrowForward
 
 @Composable
 fun ReportBarrierScreen() {
@@ -87,12 +89,91 @@ fun ReportBarrierScreen() {
                     text = "Wer ist betroffen?\nWähle mindestens eine Option.",
                     fontSize = 20.sp
                 )
+
+                Spacer(modifier = Modifier.height(28.dp))
+
+                //Optionen
+                ReportOption("Gehbeeinträchtigte")
+                ReportOption("Sehbeeinträchtigte")
+                ReportOption("Hörbeeinträchtigte")
+                ReportOption("Sonstiges")
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                //Navigation unten weiter und zurück
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    //Links pfeil + zurück
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "zurück"
+                        )
+
+                        Spacer(modifier = Modifier.width(6.dp))
+
+                        Text(
+                            text = "zurück",
+                            fontSize = 18.sp
+                        )
+                    }
+
+                    //Rechts weiter + pfeil
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ){
+                        Text(
+                            text = "weiter",
+                            fontSize = 18.sp
+                        )
+
+                        Spacer(modifier = Modifier.width(6.dp))
+
+                        Icon(
+                            imageVector = Icons.Default.ArrowForward,
+                            contentDescription = "weiter"
+                        )
+
+                        Spacer(modifier = Modifier.width(6.dp))
+                    }
+
+                }
             }
         }
     }
 }
 
-//Es kommen noch Checkboxen, Buttons, Navigation etc. später.
+@Composable
+fun ReportOption(text: String) {
+    // Eine graue Zeile mit Checkbox + Text
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 7.dp)
+            .background(Color(0xFFD9D9D9))
+            .padding(horizontal = 10.dp, vertical = 6.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // Noch nicht funktional, nur für UI
+        Checkbox(
+            checked = true,
+            onCheckedChange = null,
+            enabled = false
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Text(
+            text = text,
+            fontSize = 18.sp
+        )
+    }
+}
 
 
 @Preview (showBackground = true)
