@@ -16,6 +16,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.ui.draw.paint
 
 @Composable
 fun ReportBarrierDescriptionScreen() {
@@ -53,14 +58,17 @@ fun ReportBarrierDescriptionScreen() {
         Card(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .width(350.dp),
+                .width(350.dp)
+                .height(470.dp),
             colors = CardDefaults.cardColors(
                 containerColor = Color(0xFFEFEFEF)
             )
         ) {
             //INhalt der Card
             Column(
-                modifier = Modifier.padding(24.dp)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(24.dp)
             ) {
                 // Titel + Glocke
                 Row(
@@ -84,21 +92,98 @@ fun ReportBarrierDescriptionScreen() {
                 Spacer(modifier = Modifier.height(28.dp))
 
                 Text(
-                    text = "Beschreibe die Barriere.",
+                    text = "Beschreibe das Problem",
+                    fontSize = 20.sp,
+                )
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                //Freitextfelt. Später echte Funktionalität
+
+                OutlinedTextField(
+                    value = "",
+                    onValueChange = {},
+
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(115.dp),
+
+                    placeholder = {
+                        Text("Beschreibe hier das Problem...")
+                    },
+
+                    shape = RoundedCornerShape(14.dp),
+
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = Color(0xFFD9D9D9),
+                        unfocusedContainerColor = Color(0xFFD9D9D9),
+
+                        focusedBorderColor = Color.Transparent,
+                        unfocusedBorderColor = Color.Transparent
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(24.dp))
+
+                //GPS hinweis ncoh keine Funktion
+                Text(
+                    text = "Erlaube den GPS Zugriff zur\nStandortermittlung.",
                     fontSize = 20.sp
                 )
+
+                Spacer(modifier = Modifier.height(14.dp))
+
+                //GPS BUTTON
+
+                Button(
+                    onClick = {},
+                    modifier = Modifier.width(170.dp),
+
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFD7E4FF),
+                        contentColor = Color.Black
+                    )
+                ) {
+
+                    Text(
+                        text = "Ort ermitteln",
+                        fontSize = 18.sp
+                    )
+                }
+
+                // Schiebt die Navigation nach unten
+                Spacer(modifier = Modifier.weight(1f))
+
+                //Untere Navigation. Erstes zurück
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "zurück zur Startseite"
+                        )
+
+                        Spacer(modifier = Modifier.width(6.dp))
+
+                        Text(
+                            text = "zurück zur Startseite",
+                            fontSize = 18.sp
+                        )
+                    }
+                }
             }
         }
     }
-}
-
-//Es kommen noch Checkboxen, Buttons, Navigation etc. später.
 
 
-@Preview (showBackground = true)
-@Composable
-fun PreviewReportBarrierDescriptionScreen(){
-    Team_Koeln_BonnTheme {
-        ReportBarrierDescriptionScreen()
+
+
+
+    @Preview(showBackground = true)
+    @Composable
+    fun PreviewReportBarrierDescriptionScreen() {
+        Team_Koeln_BonnTheme {
+            ReportBarrierDescriptionScreen()
+        }
     }
-}
+
