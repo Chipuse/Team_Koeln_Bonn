@@ -2,13 +2,10 @@ package com.example.team_koeln_bonn.ui.screens
 
 import com.example.team_koeln_bonn.ui.theme.Team_Koeln_BonnTheme
  import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
  import androidx.compose.material.icons.Icons
  import androidx.compose.material.icons.filled.ArrowBack
- import androidx.compose.material.icons.filled.ArrowForward
- import androidx.compose.material.icons.filled.CheckBox
- import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Notifications
  import androidx.compose.material3.*
  import androidx.compose.runtime.Composable
  import androidx.compose.ui.Alignment
@@ -16,18 +13,12 @@ import androidx.compose.foundation.layout.*
  import androidx.compose.ui.graphics.Color
  import androidx.compose.ui.text.font.FontWeight
  import androidx.compose.ui.unit.dp
-import android.R.attr.fontStyle
-import android.R.attr.fontWeight
-import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.material3.AlertDialogDefaults.containerColor
 
 @Composable
-fun ReportBarrier() {
+fun ReportBarrierScreen() {
     // Gesamter Screen
     Column(
         modifier = Modifier
@@ -106,9 +97,9 @@ fun ReportBarrier() {
 
 @Preview (showBackground = true)
 @Composable
-fun PreviewReportBarrier(){
+fun PreviewReportBarrierScreen(){
     Team_Koeln_BonnTheme {
-        ReportBarrier()
+        ReportBarrierScreen()
     }
 }
                                    

@@ -13,7 +13,7 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="MainActivity">
+      <SelectionState runConfigName="MainActivity (2)">
         <option name="selectionMode" value="DROPDOWN" />
         <DropdownSelection timestamp="2026-06-08T09:30:53.710624200Z">
           <Target type="DEFAULT_BOOT">
@@ -24,7 +24,7 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="GreetingPreview">
+      <SelectionState runConfigName="PreviewReportBarrier2">
         <option name="selectionMode" value="DROPDOWN" />
         <DropdownSelection timestamp="2026-06-08T09:30:53.710624200Z">
           <Target type="DEFAULT_BOOT">
