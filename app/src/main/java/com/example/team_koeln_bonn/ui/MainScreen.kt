@@ -87,9 +87,9 @@ fun OurApp(
         },
         bottomBar = {
             OurBottomBar(buttons = listOf(
-                BottomBarButton(icon = Icons.Filled.Apps, contentDescription = "Menu Button", onClickBehavior = { navController.navigate(AppScreen.Menu.name)  }),
-                BottomBarButton(icon = Icons.Filled.Map, contentDescription = "Map Button", onClickBehavior = { navController.navigate(AppScreen.Map.name) }),
-                BottomBarButton(icon = Icons.Filled.AddLocationAlt, contentDescription = "Report Button", onClickBehavior = { navController.navigate(AppScreen.Report.name) })
+                BottomBarButton(icon = Icons.Filled.Apps, contentDescription = "Menu Button", onClickBehavior = { navController.popBackStack(); navController.navigate(AppScreen.Menu.name)  }), //ToDo find better solution than calling popbackstack before navigating
+                BottomBarButton(icon = Icons.Filled.Map, contentDescription = "Map Button", onClickBehavior = {navController.popBackStack(); navController.navigate(AppScreen.Menu.name); navController.navigate(AppScreen.Map.name) }),
+                BottomBarButton(icon = Icons.Filled.AddLocationAlt, contentDescription = "Report Button", onClickBehavior = {navController.popBackStack(); navController.navigate(AppScreen.Menu.name); navController.navigate(AppScreen.Report.name) })
             )
             )
         }
