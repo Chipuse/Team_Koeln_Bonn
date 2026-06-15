@@ -17,3 +17,6 @@ val ButtonContent = Color(0xFFFFFFFF) //Wenn was auf Button kommt, die Farbe die
 
 //Navigationsfarben
 val NavActive = Color(0xFF111111)
+
+//MeldnungHintergrund
+val MeldungHintergrund = Color(0xFFF5F5F5)
