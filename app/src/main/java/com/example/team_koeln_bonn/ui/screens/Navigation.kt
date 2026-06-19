@@ -5,22 +5,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 
+//names of all different screens
 enum class AppScreen(){
     Menu,
     Map,
     Community,
     Report
 }
-
-/*
-@Composable
-fun OurNavHost(){
-    NavHost(
-        navController = NavController,
-        startDestination = AppScreen.Menu.toString(),
-        modifier = Modifier
-    ){
-
-    }
-}
-*/

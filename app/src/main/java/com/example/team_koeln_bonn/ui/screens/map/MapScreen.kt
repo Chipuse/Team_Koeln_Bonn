@@ -1,4 +1,4 @@
-package com.example.team_koeln_bonn.ui.screens
+package com.example.team_koeln_bonn.ui.screens.map
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable

@@ -1,4 +1,4 @@
-package com.example.team_koeln_bonn.ui.screens
+package com.example.team_koeln_bonn.ui.screens.report
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

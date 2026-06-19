@@ -1,19 +1,14 @@
 package com.example.team_koeln_bonn.ui
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddLocationAlt
 import androidx.compose.material.icons.filled.Apps
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Map
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,10 +17,9 @@ import com.example.team_koeln_bonn.ui.composables.BottomBarButton
 import com.example.team_koeln_bonn.ui.composables.OurBottomBar
 import com.example.team_koeln_bonn.ui.composables.OurTopBar
 import com.example.team_koeln_bonn.ui.screens.AppScreen
-import com.example.team_koeln_bonn.ui.screens.MapScreen
-import com.example.team_koeln_bonn.ui.screens.MenuScreen
-import com.example.team_koeln_bonn.ui.screens.ReportBarrierScreen
-import com.example.team_koeln_bonn.ui.theme.Team_Koeln_BonnTheme
+import com.example.team_koeln_bonn.ui.screens.map.MapScreen
+import com.example.team_koeln_bonn.ui.screens.menu.MenuScreen
+import com.example.team_koeln_bonn.ui.screens.report.ReportBarrierScreen
 
 
 //entrypoint for our appscreens

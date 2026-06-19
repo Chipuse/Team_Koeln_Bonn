@@ -1,4 +1,4 @@
-package com.example.team_koeln_bonn.ui.screens
+package com.example.team_koeln_bonn.ui.screens.misc
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -8,7 +8,6 @@ import androidx.compose.material.icons.outlined.Groups
 import androidx.compose.material.icons.outlined.Apartment
 import androidx.compose.material.icons.outlined.School
 import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme

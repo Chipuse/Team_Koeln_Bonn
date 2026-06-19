@@ -1,4 +1,4 @@
-package com.example.team_koeln_bonn.ui.screens
+package com.example.team_koeln_bonn.ui.screens.report
 
 import com.example.team_koeln_bonn.ui.theme.Team_Koeln_BonnTheme
  import androidx.compose.foundation.background
@@ -14,7 +14,6 @@ import androidx.compose.material.icons.filled.Notifications
  import androidx.compose.ui.text.font.FontWeight
  import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material.icons.filled.ArrowForward
