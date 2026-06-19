@@ -9,8 +9,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.team_koeln_bonn.ui.OurApp
-import com.example.team_koeln_bonn.ui.theme.Team_Koeln_BonnTheme
+import com.example.team_koeln_bonn.presentation.ui.OurApp
+import com.example.team_koeln_bonn.presentation.ui.theme.Team_Koeln_BonnTheme
 import org.osmdroid.config.Configuration
 
 class MainActivity : ComponentActivity() {
