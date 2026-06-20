@@ -15,7 +15,6 @@ import org.osmdroid.config.Configuration
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))

@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.ArrowForward
 import androidx.navigation.NavController
 import androidx.compose.foundation.clickable
 import androidx.navigation.compose.rememberNavController
+import com.example.team_koeln_bonn.presentation.ui.screens.AppScreen
 
 @Composable
 fun ReportBarrierScreen(
@@ -33,15 +34,15 @@ fun ReportBarrierScreen(
             .padding(horizontal = 32.dp, vertical = 56.dp)
     ) {
         //Header Pfeil + Titel
-        Row(
+        /*Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Zurück Pfeil
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Back",
-                modifier = Modifier.size(28.dp)
-            )
+            //Icon(
+              //  imageVector = Icons.Default.ArrowBack,
+                //contentDescription = "Back",
+                //modifier = Modifier.size(28.dp)
+            //)
 
             // Abstand zwischen Pfeil und Titel
             Spacer(modifier = Modifier.width(24.dp))
@@ -52,22 +53,27 @@ fun ReportBarrierScreen(
                 fontWeight = FontWeight.Bold
             )
         }
+        */
          // Abstand Header und Karte
-        Spacer(modifier = Modifier.height(110.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         //Meldung Card
         Card(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .width(350.dp)
-                .height(470.dp),
+                //.width(350.dp)
+                //.height(550.dp),
+                .fillMaxWidth()
+                .fillMaxHeight(),
             colors = CardDefaults.cardColors(
                 containerColor = Color(0xFFEFEFEF)
             )
         ) {
             //INhalt der Card
             Column(
-                modifier = Modifier.padding(24.dp)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(24.dp)
             ) {
                  // Titel + Glocke
                 Row(
@@ -90,17 +96,13 @@ fun ReportBarrierScreen(
 
                 Spacer(modifier = Modifier.height(28.dp))
 
-                Text(
-                    text = "Wer ist betroffen?\nWähle mindestens eine Option.",
-                    fontSize = 20.sp
-                )
-
                 Spacer(modifier = Modifier.height(28.dp))
 
                 //Optionen
                 ReportOption(
                     "Gehbeeinträchtigte"
                 )
+
                 ReportOption(
                     "Sehbeeinträchtigte"
                 )
@@ -112,7 +114,7 @@ fun ReportBarrierScreen(
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
-                Spacer(modifier = Modifier.weight(1f))
+                //Spacer(modifier = Modifier.weight(1f))
 
                 //Navigation unten weiter und zurück
                 Row(
@@ -124,8 +126,9 @@ fun ReportBarrierScreen(
                     Row(
                         modifier = Modifier.clickable{
                             //nur Navigation
-                            navController.popBackStack()
-                        },
+                            navController.navigate(AppScreen.Menu.name)
+                        }
+                            .padding(8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
@@ -136,7 +139,7 @@ fun ReportBarrierScreen(
                         Spacer(modifier = Modifier.width(6.dp))
 
                         Text(
-                            text = "zurück",
+                            text = "zurück zur Startseite",
                             fontSize = 18.sp
                         )
                     }
@@ -145,7 +148,7 @@ fun ReportBarrierScreen(
                     Row(
                         modifier = Modifier.clickable{
                             //Später Datenübergabe hier nur Navigation
-                            navController.navigate("reportDescription")
+                            navController.navigate(AppScreen.ReportBarrierDescriptionScreen.name)
                         },
                         verticalAlignment = Alignment.CenterVertically
                     ){

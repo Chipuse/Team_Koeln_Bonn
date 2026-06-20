@@ -65,5 +65,5 @@ dependencies {
     implementation("org.osmdroid:osmdroid-android:6.1.20")
 
     //für Navigation nötig? Von Ceyda
-    implementation("andoidx.navigation:navigation-compose:2.8.0")
+    implementation("androidx.navigation:navigation-compose:2.8.0")
 }

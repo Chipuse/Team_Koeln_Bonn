@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.navigation.NavController
 import androidx.compose.foundation.clickable
 import androidx.navigation.compose.rememberNavController
+import com.example.team_koeln_bonn.presentation.ui.screens.AppScreen
 
 @Composable
 fun ReportBarrierDescriptionScreen(
@@ -33,7 +34,7 @@ fun ReportBarrierDescriptionScreen(
                 .padding(horizontal = 32.dp, vertical = 56.dp)
         ) {
             //Header Pfeil + Titel
-            Row(
+            /*Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Zurück Pfeil
@@ -57,9 +58,9 @@ fun ReportBarrierDescriptionScreen(
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold
                 )
-            }
+            }*/
             // Abstand Header und Karte
-            Spacer(modifier = Modifier.height(110.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             //Meldung Card
             Card(
@@ -78,7 +79,7 @@ fun ReportBarrierDescriptionScreen(
                         .padding(24.dp)
                 ) {
                     // Titel + Glockes
-                    Row(
+                   Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.Top
@@ -145,7 +146,7 @@ fun ReportBarrierDescriptionScreen(
                     Button(
                         onClick = {
                             //Später GPS Zugriff anfordern. Aktuell nur Navigation zum nächsten Schritt
-                            navController.navigate("reportLocation")
+                            navController.navigate(AppScreen.ReportBarrierSuccessScreen.name)
                         },
                         modifier = Modifier.width(170.dp),
 
@@ -168,19 +169,19 @@ fun ReportBarrierDescriptionScreen(
                     Row(
                         modifier = Modifier.clickable {
                             //Aktuell nur Navigation
-                            navController.navigate("home")
+                            navController.navigate(AppScreen.ReportBarrierScreen.name)
                         },
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "zurück zur Startseite"
+                            contentDescription = "zurück"
                         )
 
                         Spacer(modifier = Modifier.width(6.dp))
 
                         Text(
-                            text = "zurück zur Startseite",
+                            text = "zurück",
                             fontSize = 18.sp
                         )
                     }

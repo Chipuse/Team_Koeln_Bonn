@@ -20,6 +20,8 @@ import com.example.team_koeln_bonn.presentation.ui.screens.AppScreen
 import com.example.team_koeln_bonn.presentation.ui.screens.map.MapScreen
 import com.example.team_koeln_bonn.presentation.ui.screens.menu.MenuScreen
 import com.example.team_koeln_bonn.presentation.ui.screens.report.ReportBarrierScreen
+import com.example.team_koeln_bonn.presentation.ui.screens.report.ReportBarrierDescriptionScreen
+import com.example.team_koeln_bonn.presentation.ui.screens.report.ReportBarrierSuccessScreen
 
 
 //entrypoint for our appscreens
@@ -57,6 +59,14 @@ fun OurApp(
                 composable(route = AppScreen.Report.name){
                     ReportBarrierScreen(
                         //modifier = Modifier.fillMaxSize()
+                        navController
+                    )
+                }
+
+                composable(route = AppScreen.Report.name){
+                    ReportBarrierScreen(
+                        //modifier = Modifier.fillMaxSize()
+                        navController
                     )
                 }
 
@@ -65,6 +75,18 @@ fun OurApp(
                         //information to display mapscreen correctly
                         modifier = Modifier.fillMaxSize()
                     )
+                }
+
+                composable(route = AppScreen.ReportBarrierDescriptionScreen.name) {
+                    ReportBarrierDescriptionScreen(navController)
+                }
+
+                composable(route = AppScreen.ReportBarrierSuccessScreen.name) {
+                    ReportBarrierSuccessScreen(navController)
+                }
+
+                composable(route = AppScreen.ReportBarrierScreen.name) {
+                    ReportBarrierScreen(navController)
                 }
                 /*
                 Box(

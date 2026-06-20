@@ -8,5 +8,9 @@ enum class AppScreen(){
     Report,
 
     //Von Ceyda
-    ReportDescription,
+    ReportBarrierDescriptionScreen,
+
+    ReportBarrierSuccessScreen,
+
+    ReportBarrierScreen
 }

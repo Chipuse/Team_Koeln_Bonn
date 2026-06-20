@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.compose.foundation.clickable
 import androidx.navigation.compose.rememberNavController
+import com.example.team_koeln_bonn.presentation.ui.screens.AppScreen
 
 @Composable
 fun ReportBarrierSuccessScreen(
@@ -32,7 +33,7 @@ fun ReportBarrierSuccessScreen(
             .padding(horizontal = 32.dp, vertical = 56.dp)
     ) {
         //Header Pfeil + Titel
-        Row(
+        /*Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
             // Zurück Pfeil
@@ -43,7 +44,7 @@ fun ReportBarrierSuccessScreen(
                     .size(28.dp)
                     .clickable{
                         //Später navigation
-                        navController.navigate("home")
+                        navController.navigate(AppScreen.ReportBarrierScreen.name)
                     }
             )
 
@@ -55,9 +56,9 @@ fun ReportBarrierSuccessScreen(
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold
             )
-        }
+        }*/
         // Abstand Header und Karte
-        Spacer(modifier = Modifier.height(110.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         //Meldung Card
         Card(
@@ -107,13 +108,13 @@ fun ReportBarrierSuccessScreen(
             Row(
                 modifier = Modifier.clickable{
                     //Zurück zur Startseite. Nur navigation
-                    navController.navigate("home")
+                    navController.navigate(AppScreen.Menu.name)
                 },
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "zurück zur Startseite"
+                    contentDescription = "zurück"
                 )
 
                 Spacer(modifier = Modifier.width(6.dp))
