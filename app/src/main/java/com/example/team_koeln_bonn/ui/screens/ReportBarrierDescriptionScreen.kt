@@ -70,7 +70,7 @@ fun ReportBarrierDescriptionScreen() {
                     .fillMaxSize()
                     .padding(24.dp)
             ) {
-                // Titel + Glocke
+                // Titel + Glockes
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
