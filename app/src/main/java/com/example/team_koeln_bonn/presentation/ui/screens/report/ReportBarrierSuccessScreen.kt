@@ -16,9 +16,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.compose.foundation.clickable
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun ReportBarrierSuccessScreen() {
+fun ReportBarrierSuccessScreen(
+    navController: NavController
+) {
     // Gesamter Screen
     Column(
         modifier = Modifier
@@ -34,7 +39,12 @@ fun ReportBarrierSuccessScreen() {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
                 contentDescription = "Back",
-                modifier = Modifier.size(28.dp)
+                modifier = Modifier
+                    .size(28.dp)
+                    .clickable{
+                        //Später navigation
+                        navController.navigate("home")
+                    }
             )
 
             // Abstand zwischen Pfeil und Titel
@@ -95,6 +105,10 @@ fun ReportBarrierSuccessScreen() {
                 Spacer(modifier = Modifier.weight(1f))
 
             Row(
+                modifier = Modifier.clickable{
+                    //Zurück zur Startseite. Nur navigation
+                    navController.navigate("home")
+                },
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
@@ -120,7 +134,9 @@ fun ReportBarrierSuccessScreen() {
 @Preview (showBackground = true)
 @Composable
 fun PreviewReportBarrierSuccessScreen(){
+    val navController = rememberNavController()
+
     Team_Koeln_BonnTheme {
-        ReportBarrierSuccessScreen()
+        ReportBarrierSuccessScreen(navController)
     }
 }

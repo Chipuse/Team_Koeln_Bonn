@@ -17,9 +17,14 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.navigation.NavController
+import androidx.compose.foundation.clickable
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun ReportBarrierScreen() {
+fun ReportBarrierScreen(
+    navController: NavController
+) {
     // Gesamter Screen
     Column(
         modifier = Modifier
@@ -117,6 +122,10 @@ fun ReportBarrierScreen() {
                 ){
                     //Links pfeil + zurück
                     Row(
+                        modifier = Modifier.clickable{
+                            //nur Navigation
+                            navController.popBackStack()
+                        },
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
@@ -134,6 +143,10 @@ fun ReportBarrierScreen() {
 
                     //Rechts weiter + pfeil
                     Row(
+                        modifier = Modifier.clickable{
+                            //Später Datenübergabe hier nur Navigation
+                            navController.navigate("reportDescription")
+                        },
                         verticalAlignment = Alignment.CenterVertically
                     ){
                         Text(
@@ -188,8 +201,9 @@ fun ReportOption(text: String) {
 @Preview (showBackground = true)
 @Composable
 fun PreviewReportBarrierScreen(){
+    val navController = rememberNavController()
     Team_Koeln_BonnTheme {
-        ReportBarrierScreen()
+        ReportBarrierScreen(navController)
     }
 }
                                    

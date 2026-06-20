@@ -5,5 +5,8 @@ enum class AppScreen(){
     Menu,
     Map,
     Community,
-    Report
+    Report,
+
+    //Von Ceyda
+    ReportDescription,
 }
