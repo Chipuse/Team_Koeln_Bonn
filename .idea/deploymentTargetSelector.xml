@@ -13,23 +13,12 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="PreviewReportBarrierScreen">
+      <SelectionState runConfigName="MainActivity">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-06-08T09:30:53.710624200Z">
+        <DropdownSelection timestamp="2026-06-19T21:50:45.120124400Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=R3CTB09HQVR" />
-            </handle>
-          </Target>
-        </DropdownSelection>
-        <DialogSelection />
-      </SelectionState>
-      <SelectionState runConfigName="UpdateBarrierScreenFourPreview">
-        <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2026-06-08T09:30:53.710624200Z">
-          <Target type="DEFAULT_BOOT">
-            <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=R3CTB09HQVR" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\Users\ariga\.android\avd\Pixel_10_2.avd" />
             </handle>
           </Target>
         </DropdownSelection>
