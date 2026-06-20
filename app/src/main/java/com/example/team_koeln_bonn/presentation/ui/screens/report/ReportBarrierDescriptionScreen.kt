@@ -21,11 +21,15 @@ import androidx.navigation.NavController
 import androidx.compose.foundation.clickable
 import androidx.navigation.compose.rememberNavController
 import com.example.team_koeln_bonn.presentation.ui.screens.AppScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
 
 @Composable
 fun ReportBarrierDescriptionScreen(
     navController: NavController
 ) {
+
+    val barrierUpdateViewModel: BarrierUpdateViewModel = viewModel()
         // Gesamter Screen
         Column(
             modifier = Modifier
@@ -109,8 +113,10 @@ fun ReportBarrierDescriptionScreen(
                     //Freitextfelt. Später echte Funktionalität
 
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = barrierUpdateViewModel.description,
+                        onValueChange = {
+                            barrierUpdateViewModel.updateDescription(it)
+                        },
 
                         modifier = Modifier
                             .fillMaxWidth()

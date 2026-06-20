@@ -21,11 +21,15 @@ import androidx.navigation.NavController
 import androidx.compose.foundation.clickable
 import androidx.navigation.compose.rememberNavController
 import com.example.team_koeln_bonn.presentation.ui.screens.AppScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
+import com.example.team_koeln_bonn.domain.model.UpdateAffectedGroup
 
 @Composable
 fun ReportBarrierScreen(
     navController: NavController
 ) {
+    val barrierUpdateViewModel: BarrierUpdateViewModel = viewModel()
     // Gesamter Screen
     Column(
         modifier = Modifier
@@ -100,17 +104,57 @@ fun ReportBarrierScreen(
 
                 //Optionen
                 ReportOption(
-                    "Gehbeeinträchtigte"
+                    text = "Gehbeeinträchtigte",
+
+                    checked =
+                        UpdateAffectedGroup.WALKING
+                                in barrierUpdateViewModel.selectedGroups,
+
+                    onCheckedChange = {
+                        barrierUpdateViewModel.toggleGroup(
+                            UpdateAffectedGroup.WALKING
+                        )
+                    }
                 )
 
                 ReportOption(
-                    "Sehbeeinträchtigte"
+                    text = "Sehbeeinträchtigte",
+
+                    checked =
+                        UpdateAffectedGroup.SEEING
+                                in barrierUpdateViewModel.selectedGroups,
+
+                    onCheckedChange = {
+                        barrierUpdateViewModel.toggleGroup(
+                            UpdateAffectedGroup.SEEING
+                        )
+                    }
                 )
                 ReportOption(
-                    "Hörbeeinträchtigte"
+                    text = "Hörbeeinträchtigte",
+
+                    checked =
+                        UpdateAffectedGroup.HEARING
+                                in barrierUpdateViewModel.selectedGroups,
+
+                    onCheckedChange = {
+                        barrierUpdateViewModel.toggleGroup(
+                            UpdateAffectedGroup.HEARING
+                        )
+                    }
                 )
                 ReportOption(
-                    "Sonstiges"
+                    text = "Sonstiges",
+
+                    checked =
+                        UpdateAffectedGroup.OTHER
+                                in barrierUpdateViewModel.selectedGroups,
+
+                    onCheckedChange = {
+                        barrierUpdateViewModel.toggleGroup(
+                            UpdateAffectedGroup.OTHER
+                        )
+                    }
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -124,10 +168,11 @@ fun ReportBarrierScreen(
                 ){
                     //Links pfeil + zurück
                     Row(
-                        modifier = Modifier.clickable{
-                            //nur Navigation
-                            navController.navigate(AppScreen.Menu.name)
-                        }
+                        modifier = Modifier
+                            .clickable {
+                                //nur Navigation
+                                navController.navigate(AppScreen.Menu.name)
+                            }
                             .padding(8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -174,7 +219,11 @@ fun ReportBarrierScreen(
 }
 
 @Composable
-fun ReportOption(text: String) {
+fun ReportOption(
+    text: String,
+    checked: Boolean,
+    onCheckedChange: ()-> Unit
+) {
     // Eine graue Zeile mit Checkbox + Text
     Row(
         modifier = Modifier
@@ -186,9 +235,10 @@ fun ReportOption(text: String) {
     ) {
         // Noch nicht funktional, nur für UI
         Checkbox(
-            checked = true,
-            onCheckedChange = null,
-            enabled = false
+            checked = checked,
+            onCheckedChange = {
+                onCheckedChange()
+            }
         )
 
         Spacer(modifier = Modifier.width(8.dp))
