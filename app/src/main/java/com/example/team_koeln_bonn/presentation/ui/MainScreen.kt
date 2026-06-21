@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddLocationAlt
 import androidx.compose.material.icons.filled.Apps
+import androidx.compose.material.icons.filled.EditLocationAlt
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -125,7 +126,16 @@ fun OurApp(
                             navController.popBackStack(); navController.navigate(AppScreen.Menu.name); navController.navigate(
                             AppScreen.Report.name
                         )
+                        }),
+                    BottomBarButton(
+                        icon = Icons.Filled.EditLocationAlt,
+                        contentDescription = "Update Barrier",
+                        onClickBehavior = {
+                            navController.popBackStack(); navController.navigate(AppScreen.Menu.name); navController.navigate(
+                            AppScreen.UpdateBarrier.name
+                        )
                         })
+
                 )
             )
         }

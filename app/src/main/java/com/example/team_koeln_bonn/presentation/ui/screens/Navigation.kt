@@ -7,6 +7,8 @@ enum class AppScreen(){
     Community,
     Report,
 
+    UpdateBarrier,
+
     //Von Ceyda
     ReportBarrierDescriptionScreen,
 
