@@ -23,6 +23,9 @@ import com.example.team_koeln_bonn.presentation.ui.screens.menu.MenuScreen
 import com.example.team_koeln_bonn.presentation.ui.screens.report.ReportBarrierScreen
 import com.example.team_koeln_bonn.presentation.ui.screens.report.ReportBarrierDescriptionScreen
 import com.example.team_koeln_bonn.presentation.ui.screens.report.ReportBarrierSuccessScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
 
 
 //entrypoint for our appscreens
@@ -31,6 +34,8 @@ fun OurApp(
     //viewmodel,
     navController : NavHostController = rememberNavController()
 ){
+    val barrierUpdateViewModel: BarrierUpdateViewModel = viewModel()
+
     Scaffold(
         modifier = Modifier,
         //top app bar content
@@ -60,14 +65,8 @@ fun OurApp(
                 composable(route = AppScreen.Report.name){
                     ReportBarrierScreen(
                         //modifier = Modifier.fillMaxSize()
-                        navController
-                    )
-                }
-
-                composable(route = AppScreen.Report.name){
-                    ReportBarrierScreen(
-                        //modifier = Modifier.fillMaxSize()
-                        navController
+                        navController = navController,
+                        barrierUpdateViewModel = barrierUpdateViewModel
                     )
                 }
 
@@ -79,7 +78,10 @@ fun OurApp(
                 }
 
                 composable(route = AppScreen.ReportBarrierDescriptionScreen.name) {
-                    ReportBarrierDescriptionScreen(navController)
+                    ReportBarrierDescriptionScreen(
+                        navController = navController,
+                        barrierUpdateViewModel = barrierUpdateViewModel
+                    )
                 }
 
                 composable(route = AppScreen.ReportBarrierSuccessScreen.name) {
@@ -87,7 +89,10 @@ fun OurApp(
                 }
 
                 composable(route = AppScreen.ReportBarrierScreen.name) {
-                    ReportBarrierScreen(navController)
+                    ReportBarrierScreen(
+                        navController = navController,
+                        barrierUpdateViewModel = barrierUpdateViewModel
+                    )
                 }
                 /*
                 Box(

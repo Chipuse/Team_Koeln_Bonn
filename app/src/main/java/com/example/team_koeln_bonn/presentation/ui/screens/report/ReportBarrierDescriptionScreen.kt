@@ -26,10 +26,12 @@ import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
 
 @Composable
 fun ReportBarrierDescriptionScreen(
-    navController: NavController
+    navController: NavController,
+    barrierUpdateViewModel: BarrierUpdateViewModel
 ) {
+   // val barrierUpdateViewModel: BarrierUpdateViewModel = viewModel()
 
-    val barrierUpdateViewModel: BarrierUpdateViewModel = viewModel()
+    println("Viewmodel: " + barrierUpdateViewModel.hashCode())
         // Gesamter Screen
         Column(
             modifier = Modifier
@@ -200,7 +202,7 @@ fun ReportBarrierDescriptionScreen(
 
 
 
-
+/*
     @Preview(showBackground = true)
     @Composable
     fun PreviewReportBarrierDescriptionScreen() {
@@ -211,3 +213,4 @@ fun ReportBarrierDescriptionScreen(
         }
     }
 
+*/

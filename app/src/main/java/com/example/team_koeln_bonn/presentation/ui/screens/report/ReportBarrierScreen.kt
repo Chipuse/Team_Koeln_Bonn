@@ -27,9 +27,10 @@ import com.example.team_koeln_bonn.domain.model.UpdateAffectedGroup
 
 @Composable
 fun ReportBarrierScreen(
-    navController: NavController
+    navController: NavController,
+    barrierUpdateViewModel: BarrierUpdateViewModel
 ) {
-    val barrierUpdateViewModel: BarrierUpdateViewModel = viewModel()
+    //val barrierUpdateViewModel: BarrierUpdateViewModel = viewModel()
     // Gesamter Screen
     Column(
         modifier = Modifier
@@ -250,13 +251,19 @@ fun ReportOption(
     }
 }
 
-
+/*
 @Preview (showBackground = true)
 @Composable
 fun PreviewReportBarrierScreen(){
+
     val navController = rememberNavController()
+    val barrierUpdateViewModel = BarrierUpdateViewModel()
+
     Team_Koeln_BonnTheme {
-        ReportBarrierScreen(navController)
+        ReportBarrierScreen(
+            navController = navController,
+            barrierUpdateViewModel = barrierUpdateViewModel
+        )
     }
 }
-                                   
+   */
