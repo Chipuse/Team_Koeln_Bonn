@@ -1,6 +1,7 @@
 package com.example.team_koeln_bonn.presentation.ui.screens.report
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable // GEÄNDERT: Für Navigation klickbar machen
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -19,7 +20,10 @@ import com.example.team_koeln_bonn.presentation.ui.theme.MeldungHintergrund
 import com.example.team_koeln_bonn.presentation.ui.theme.Team_Koeln_BonnTheme
 
 @Composable
-fun UpdateBarrierScreenFour() {
+fun UpdateBarrierScreenFour(
+    onBackClick: () -> Unit, // GEÄNDERT: Klick zurück
+    onHomeClick: () -> Unit // GEÄNDERT: Zurück zur Startseite
+) {
 
     //Grundgerüst
     Column(
@@ -34,17 +38,10 @@ fun UpdateBarrierScreenFour() {
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Zurück",
-                modifier = Modifier.size(28.dp),
-                tint = MaterialTheme.colorScheme.onBackground
-            )
-
             Spacer(modifier = Modifier.width(24.dp))
 
             Text(
-                text = "Barriere updaten",
+                text = "", //Header Text weg
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.onBackground
             )
@@ -102,6 +99,9 @@ fun UpdateBarrierScreenFour() {
 
                 // Zurück zur Startseite
                 Row(
+                    modifier = Modifier.clickable { // GEÄNDERT: Zurück zur Startseite klickbar
+                        onHomeClick()
+                    },
                     verticalAlignment = Alignment.CenterVertically
                 ) {
 
@@ -128,6 +128,9 @@ fun UpdateBarrierScreenFour() {
 @Composable
 fun UpdateBarrierScreenFourPreview() {
     Team_Koeln_BonnTheme {
-        UpdateBarrierScreenFour()
+        UpdateBarrierScreenFour(
+            onBackClick = {}, // GEÄNDERT: Dummy Callback für Preview
+            onHomeClick = {} // GEÄNDERT: Dummy Callback für Preview
+        )
     }
 }

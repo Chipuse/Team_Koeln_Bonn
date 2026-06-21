@@ -1,6 +1,7 @@
 package com.example.team_koeln_bonn.presentation.ui.screens.report
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -25,7 +26,9 @@ import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
 
 @Composable
 fun UpdateBarrierScreenTwo(
-    viewModel: BarrierUpdateViewModel = viewModel()
+    viewModel: BarrierUpdateViewModel = viewModel(),
+    onBackClick: () -> Unit, // GEÄNDERT: Klick zwischen den Screens
+    onNextClick: () -> Unit // GEÄNDERT: Klick zwischen den Screens
 ) {
 
     //Grundgerüst
@@ -41,23 +44,15 @@ fun UpdateBarrierScreenTwo(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Zurück",
-                modifier = Modifier.size(28.dp),
-                tint = MaterialTheme.colorScheme.onBackground
-            )
-
-            Spacer(modifier = Modifier.width(24.dp))
 
             Text(
-                text = "Barriere updaten",
+                text = "",//weg
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.onBackground
             )
         }
 
-        Spacer(modifier = Modifier.height(110.dp))
+        Spacer(modifier = Modifier.height(90.dp)) // GEÄNDERT: Weniger Abstand, damit Navigation unten sichtbar bleibt
 
         // Meldung Card
         Card(
@@ -94,7 +89,7 @@ fun UpdateBarrierScreenTwo(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(28.dp))
+                Spacer(modifier = Modifier.height(24.dp)) // GEÄNDERT: Weniger Abstand, damit Navigation unten sichtbar bleibt
 
                 // Inhalt vom Figma Screen
                 Text(
@@ -103,7 +98,7 @@ fun UpdateBarrierScreenTwo(
                     color = MaterialTheme.colorScheme.onSurface
                 )
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(16.dp)) // GEÄNDERT: Weniger Abstand, damit Navigation unten sichtbar bleibt
 
                 // Auswahl der betroffenen Personengruppen
                 UpdateAffectedGroup.entries.forEach { group ->
@@ -129,10 +124,10 @@ fun UpdateBarrierScreenTwo(
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                    Spacer(modifier = Modifier.height(8.dp)) // GEÄNDERT: Weniger Abstand zwischen Checkboxen
                 }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(12.dp)) // GEÄNDERT: Weniger Abstand, damit Navigation unten sichtbar bleibt
 
                 // Navigation zwischen den Schritten
                 Row(
@@ -141,7 +136,12 @@ fun UpdateBarrierScreenTwo(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
 
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                    Row(
+                        modifier = Modifier.clickable { // GEÄNDERT: Zurück klickbar
+                            onBackClick()
+                        },
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Zurück",
@@ -157,7 +157,12 @@ fun UpdateBarrierScreenTwo(
                         )
                     }
 
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                    Row(
+                        modifier = Modifier.clickable { // GEÄNDERT: Weiter klickbar
+                            onNextClick()
+                        },
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Text(
                             text = "weiter",
                             style = MaterialTheme.typography.labelLarge,
@@ -181,7 +186,10 @@ fun UpdateBarrierScreenTwo(
 @Preview(showBackground = true)
 @Composable
 fun UpdateBarrierScreenTwoPreview() {
-    _root_ide_package_.com.example.team_koeln_bonn.presentation.ui.theme.Team_Koeln_BonnTheme {
-        _root_ide_package_.com.example.team_koeln_bonn.presentation.ui.screens.report.UpdateBarrierScreenTwo()
+    Team_Koeln_BonnTheme {
+        UpdateBarrierScreenTwo(
+            onBackClick = {}, // GEÄNDERT: Dummy-Callback für Preview
+            onNextClick = {} // GEÄNDERT: Dummy-Callback für Preview
+        )
     }
 }

@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Map
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -23,10 +24,17 @@ import com.example.team_koeln_bonn.presentation.ui.screens.menu.MenuScreen
 import com.example.team_koeln_bonn.presentation.ui.screens.report.ReportBarrierScreen
 import com.example.team_koeln_bonn.presentation.ui.screens.report.ReportBarrierDescriptionScreen
 import com.example.team_koeln_bonn.presentation.ui.screens.report.ReportBarrierSuccessScreen
+<<<<<<< Updated upstream
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
 
+=======
+import com.example.team_koeln_bonn.presentation.ui.screens.report.UpdateBarrierScreenTwo
+import com.example.team_koeln_bonn.presentation.ui.screens.report.UpdateBarrierScreenThree
+import com.example.team_koeln_bonn.presentation.ui.screens.report.UpdateBarrierScreenFour
+import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
+>>>>>>> Stashed changes
 
 //entrypoint for our appscreens
 @Composable
@@ -34,7 +42,12 @@ fun OurApp(
     //viewmodel,
     navController : NavHostController = rememberNavController()
 ){
+<<<<<<< Updated upstream
     val barrierUpdateViewModel: BarrierUpdateViewModel = viewModel()
+=======
+    val barrierUpdateViewModel : BarrierUpdateViewModel = viewModel() //gemeinsames ViewModel UpdateBarrierScreenTwo und UpdateBarrierThree
+
+>>>>>>> Stashed changes
 
     Scaffold(
         modifier = Modifier,
@@ -94,6 +107,43 @@ fun OurApp(
                         barrierUpdateViewModel = barrierUpdateViewModel
                     )
                 }
+
+                //Navigation zu UpdateBarrierScreens
+                composable(route = AppScreen.UpdateBarrierScreenTwo.name) {
+                    UpdateBarrierScreenTwo(
+                        viewModel = barrierUpdateViewModel,//gemeinsames Viewmodel übergeben die Zwischenspeicherung
+                        onBackClick = {
+                            navController.popBackStack()
+                        },
+                        onNextClick = {
+                            navController.navigate(AppScreen.UpdateBarrierScreenThree.name)
+                        }
+                    )
+                }
+
+                composable(route = AppScreen.UpdateBarrierScreenThree.name) {
+                    UpdateBarrierScreenThree(
+                        viewModel = barrierUpdateViewModel,
+                        onBackClick = {
+                            navController.popBackStack()
+                        },
+                        onSubmitClick = {
+                            navController.navigate(AppScreen.UpdateBarrierScreenFour.name)
+                        }
+                    )
+                }
+
+                composable(route = AppScreen.UpdateBarrierScreenFour.name) {
+                    UpdateBarrierScreenFour(
+
+                        onBackClick = {
+                            navController.popBackStack()
+                        },
+                        onHomeClick = {
+                            navController.navigate(AppScreen.Menu.name)
+                        }
+                    )
+                }
                 /*
                 Box(
                     modifier = Modifier
@@ -137,7 +187,7 @@ fun OurApp(
                         contentDescription = "Update Barrier",
                         onClickBehavior = {
                             navController.popBackStack(); navController.navigate(AppScreen.Menu.name); navController.navigate(
-                            AppScreen.UpdateBarrier.name
+                            AppScreen.UpdateBarrierScreenTwo.name
                         )
                         })
 

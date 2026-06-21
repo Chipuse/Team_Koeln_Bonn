@@ -1,18 +1,25 @@
 package com.example.team_koeln_bonn.presentation.ui.screens.report
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable // GEÄNDERT: Für Navigation klickbar machen
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material3.AlertDialog // GEÄNDERT: Dialog für Sicherheitsabfrage
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton // GEÄNDERT: Buttons im Dialog
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue // GEÄNDERT: State für Dialog
+import androidx.compose.runtime.mutableStateOf // GEÄNDERT: State für Dialog
+import androidx.compose.runtime.remember // GEÄNDERT: State für Dialog
+import androidx.compose.runtime.setValue // GEÄNDERT: State für Dialog
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,8 +31,12 @@ import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
 
 @Composable
 fun UpdateBarrierScreenThree(
-    viewModel: BarrierUpdateViewModel = viewModel()
+    viewModel: BarrierUpdateViewModel = viewModel(),
+    onBackClick: () -> Unit, // GEÄNDERT: Klick zwischen den Screens
+    onSubmitClick: () -> Unit // GEÄNDERT: Meldung abschicken
 ) {
+
+    var showConfirmDialog by remember { mutableStateOf(false) } // GEÄNDERT: Sicherheitsabfrage anzeigen
 
     //Grundgerüst
     Column(
@@ -40,17 +51,11 @@ fun UpdateBarrierScreenThree(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Zurück",
-                modifier = Modifier.size(28.dp),
-                tint = MaterialTheme.colorScheme.onBackground
-            )
 
             Spacer(modifier = Modifier.width(24.dp))
 
             Text(
-                text = "Barriere updaten",
+                text = "", //weg
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.onBackground
             )
@@ -127,7 +132,12 @@ fun UpdateBarrierScreenThree(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
 
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                    Row(
+                        modifier = Modifier.clickable { // GEÄNDERT: Zurück klickbar
+                            onBackClick()
+                        },
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Icon(
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Zurück",
@@ -143,7 +153,12 @@ fun UpdateBarrierScreenThree(
                         )
                     }
 
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                    Row(
+                        modifier = Modifier.clickable { // GEÄNDERT: Sicherheitsabfrage vor dem Abschicken öffnen
+                            showConfirmDialog = true
+                        },
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Text(
                             text = "Meldung\nabschicken",
                             style = MaterialTheme.typography.labelLarge,
@@ -162,12 +177,48 @@ fun UpdateBarrierScreenThree(
             }
         }
     }
+
+    if (showConfirmDialog) { // GEÄNDERT: Sicherheitsabfrage vor dem Abschicken
+        AlertDialog(
+            onDismissRequest = {
+                showConfirmDialog = false
+            },
+            title = {
+                Text(text = "Sind Sie sicher?")
+            },
+            text = {
+                Text(text = "Möchten Sie diese Meldung wirklich abschicken?")
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showConfirmDialog = false
+                        onSubmitClick()
+                    }
+                ) {
+                    Text(text = "Ja")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showConfirmDialog = false
+                    }
+                ) {
+                    Text(text = "Nein")
+                }
+            }
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun UpdateBarrierScreenThreePreview() {
     Team_Koeln_BonnTheme {
-        UpdateBarrierScreenThree()
+        UpdateBarrierScreenThree(
+            onBackClick = {}, // GEÄNDERT: Dummy Callback für Preview
+            onSubmitClick = {} // GEÄNDERT: Dummy Callback für Preview
+        )
     }
 }

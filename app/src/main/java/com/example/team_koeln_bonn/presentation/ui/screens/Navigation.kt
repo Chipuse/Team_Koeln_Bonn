@@ -7,7 +7,11 @@ enum class AppScreen(){
     Community,
     Report,
 
-    UpdateBarrier,
+    //Update Barrier Flow
+
+    UpdateBarrierScreenTwo,
+    UpdateBarrierScreenThree,
+    UpdateBarrierScreenFour,
 
     //Von Ceyda
     ReportBarrierDescriptionScreen,
@@ -15,4 +19,6 @@ enum class AppScreen(){
     ReportBarrierSuccessScreen,
 
     ReportBarrierScreen
+
+
 }
