@@ -1,7 +1,7 @@
 package com.example.team_koeln_bonn.presentation.ui.screens.report
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable // GEÄNDERT: Für Navigation klickbar machen
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -21,8 +21,8 @@ import com.example.team_koeln_bonn.presentation.ui.theme.Team_Koeln_BonnTheme
 
 @Composable
 fun UpdateBarrierScreenFour(
-    onBackClick: () -> Unit, // GEÄNDERT: Klick zurück
-    onHomeClick: () -> Unit // GEÄNDERT: Zurück zur Startseite
+    onBackClick: () -> Unit, // Klick zurück
+    onHomeClick: () -> Unit // Zurück zur Startseite
 ) {
 
     //Grundgerüst
@@ -99,7 +99,7 @@ fun UpdateBarrierScreenFour(
 
                 // Zurück zur Startseite
                 Row(
-                    modifier = Modifier.clickable { // GEÄNDERT: Zurück zur Startseite klickbar
+                    modifier = Modifier.clickable { //urück zur Startseite klickbar
                         onHomeClick()
                     },
                     verticalAlignment = Alignment.CenterVertically
@@ -129,8 +129,8 @@ fun UpdateBarrierScreenFour(
 fun UpdateBarrierScreenFourPreview() {
     Team_Koeln_BonnTheme {
         UpdateBarrierScreenFour(
-            onBackClick = {}, // GEÄNDERT: Dummy Callback für Preview
-            onHomeClick = {} // GEÄNDERT: Dummy Callback für Preview
+            onBackClick = {}, // Dummy Callback für Preview
+            onHomeClick = {} // Dummy Callback für Preview
         )
     }
 }

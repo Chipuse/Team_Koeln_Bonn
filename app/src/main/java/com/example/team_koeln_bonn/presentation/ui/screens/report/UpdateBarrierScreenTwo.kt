@@ -27,8 +27,8 @@ import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
 @Composable
 fun UpdateBarrierScreenTwo(
     viewModel: BarrierUpdateViewModel = viewModel(),
-    onBackClick: () -> Unit, // GEÄNDERT: Klick zwischen den Screens
-    onNextClick: () -> Unit // GEÄNDERT: Klick zwischen den Screens
+    onBackClick: () -> Unit,
+    onNextClick: () -> Unit
 ) {
 
     //Grundgerüst
@@ -89,7 +89,7 @@ fun UpdateBarrierScreenTwo(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(24.dp)) // GEÄNDERT: Weniger Abstand, damit Navigation unten sichtbar bleibt
+                Spacer(modifier = Modifier.height(24.dp)) // Weniger Abstand, damit Navigation unten sichtbar bleibt
 
                 // Inhalt vom Figma Screen
                 Text(
@@ -98,7 +98,7 @@ fun UpdateBarrierScreenTwo(
                     color = MaterialTheme.colorScheme.onSurface
                 )
 
-                Spacer(modifier = Modifier.height(16.dp)) // GEÄNDERT: Weniger Abstand, damit Navigation unten sichtbar bleibt
+                Spacer(modifier = Modifier.height(16.dp)) // Abstandssache hier auch geändert
 
                 // Auswahl der betroffenen Personengruppen
                 UpdateAffectedGroup.entries.forEach { group ->
@@ -124,10 +124,10 @@ fun UpdateBarrierScreenTwo(
                         )
                     }
 
-                    Spacer(modifier = Modifier.height(8.dp)) // GEÄNDERT: Weniger Abstand zwischen Checkboxen
+                    Spacer(modifier = Modifier.height(8.dp)) // Weniger Abstand zwischen Checkboxen
                 }
 
-                Spacer(modifier = Modifier.height(12.dp)) // GEÄNDERT: Weniger Abstand, damit Navigation unten sichtbar bleibt
+                Spacer(modifier = Modifier.height(12.dp)) //Weniger Abstand, damit Navigation unten sichtbar bleibt
 
                 // Navigation zwischen den Schritten
                 Row(
@@ -137,7 +137,7 @@ fun UpdateBarrierScreenTwo(
                 ) {
 
                     Row(
-                        modifier = Modifier.clickable { // GEÄNDERT: Zurück klickbar
+                        modifier = Modifier.clickable {
                             onBackClick()
                         },
                         verticalAlignment = Alignment.CenterVertically
@@ -158,7 +158,7 @@ fun UpdateBarrierScreenTwo(
                     }
 
                     Row(
-                        modifier = Modifier.clickable { // GEÄNDERT: Weiter klickbar
+                        modifier = Modifier.clickable {
                             onNextClick()
                         },
                         verticalAlignment = Alignment.CenterVertically
@@ -188,8 +188,8 @@ fun UpdateBarrierScreenTwo(
 fun UpdateBarrierScreenTwoPreview() {
     Team_Koeln_BonnTheme {
         UpdateBarrierScreenTwo(
-            onBackClick = {}, // GEÄNDERT: Dummy-Callback für Preview
-            onNextClick = {} // GEÄNDERT: Dummy-Callback für Preview
+            onBackClick = {},
+            onNextClick = {}
         )
     }
 }

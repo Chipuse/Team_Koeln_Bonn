@@ -1,25 +1,25 @@
 package com.example.team_koeln_bonn.presentation.ui.screens.report
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable // GEÄNDERT: Für Navigation klickbar machen
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material3.AlertDialog // GEÄNDERT: Dialog für Sicherheitsabfrage
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton // GEÄNDERT: Buttons im Dialog
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue // GEÄNDERT: State für Dialog
-import androidx.compose.runtime.mutableStateOf // GEÄNDERT: State für Dialog
-import androidx.compose.runtime.remember // GEÄNDERT: State für Dialog
-import androidx.compose.runtime.setValue // GEÄNDERT: State für Dialog
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,11 +32,11 @@ import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
 @Composable
 fun UpdateBarrierScreenThree(
     viewModel: BarrierUpdateViewModel = viewModel(),
-    onBackClick: () -> Unit, // GEÄNDERT: Klick zwischen den Screens
-    onSubmitClick: () -> Unit // GEÄNDERT: Meldung abschicken
+    onBackClick: () -> Unit, // Klick zwischen den Screens
+    onSubmitClick: () -> Unit // Meldung abschicken
 ) {
 
-    var showConfirmDialog by remember { mutableStateOf(false) } // GEÄNDERT: Sicherheitsabfrage anzeigen
+    var showConfirmDialog by remember { mutableStateOf(false) } // Sicherheitsabfrage anzeigen
 
     //Grundgerüst
     Column(
@@ -133,7 +133,7 @@ fun UpdateBarrierScreenThree(
                 ) {
 
                     Row(
-                        modifier = Modifier.clickable { // GEÄNDERT: Zurück klickbar
+                        modifier = Modifier.clickable { //zurück klickbar
                             onBackClick()
                         },
                         verticalAlignment = Alignment.CenterVertically
@@ -154,7 +154,7 @@ fun UpdateBarrierScreenThree(
                     }
 
                     Row(
-                        modifier = Modifier.clickable { // GEÄNDERT: Sicherheitsabfrage vor dem Abschicken öffnen
+                        modifier = Modifier.clickable { //sicherheitsabfrage vor dem Abschicken öffnen
                             showConfirmDialog = true
                         },
                         verticalAlignment = Alignment.CenterVertically
@@ -178,7 +178,7 @@ fun UpdateBarrierScreenThree(
         }
     }
 
-    if (showConfirmDialog) { // GEÄNDERT: Sicherheitsabfrage vor dem Abschicken
+    if (showConfirmDialog) { // sicherheitsabfrage vor dem Abschicken
         AlertDialog(
             onDismissRequest = {
                 showConfirmDialog = false
@@ -217,8 +217,8 @@ fun UpdateBarrierScreenThree(
 fun UpdateBarrierScreenThreePreview() {
     Team_Koeln_BonnTheme {
         UpdateBarrierScreenThree(
-            onBackClick = {}, // GEÄNDERT: Dummy Callback für Preview
-            onSubmitClick = {} // GEÄNDERT: Dummy Callback für Preview
+            onBackClick = {},
+            onSubmitClick = {}
         )
     }
 }

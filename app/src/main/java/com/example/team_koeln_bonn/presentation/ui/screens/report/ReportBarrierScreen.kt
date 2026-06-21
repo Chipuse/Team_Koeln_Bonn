@@ -1,18 +1,18 @@
 package com.example.team_koeln_bonn.presentation.ui.screens.report
 
 import com.example.team_koeln_bonn.presentation.ui.theme.Team_Koeln_BonnTheme
- import androidx.compose.foundation.background
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
- import androidx.compose.material.icons.Icons
- import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Notifications
- import androidx.compose.material3.*
- import androidx.compose.runtime.Composable
- import androidx.compose.ui.Alignment
- import androidx.compose.ui.Modifier
- import androidx.compose.ui.graphics.Color
- import androidx.compose.ui.text.font.FontWeight
- import androidx.compose.ui.unit.dp
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,13 +22,13 @@ import androidx.compose.foundation.clickable
 import androidx.navigation.compose.rememberNavController
 import com.example.team_koeln_bonn.presentation.ui.screens.AppScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
+import com.example.team_koeln_bonn.presentation.viewModel.BarrierReportViewModel // GEÄNDERT:
 import com.example.team_koeln_bonn.domain.model.UpdateAffectedGroup
 
 @Composable
 fun ReportBarrierScreen(
     navController: NavController,
-    barrierUpdateViewModel: BarrierUpdateViewModel
+    barrierReportViewModel: BarrierReportViewModel = viewModel() // GEÄNDERT:
 ) {
     //val barrierUpdateViewModel: BarrierUpdateViewModel = viewModel()
     // Gesamter Screen
@@ -59,7 +59,7 @@ fun ReportBarrierScreen(
             )
         }
         */
-         // Abstand Header und Karte
+        // Abstand Header und Karte
         Spacer(modifier = Modifier.height(20.dp))
 
         //Meldung Card
@@ -80,7 +80,7 @@ fun ReportBarrierScreen(
                     .fillMaxSize()
                     .padding(24.dp)
             ) {
-                 // Titel + Glocke
+                // Titel + Glocke
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -109,10 +109,10 @@ fun ReportBarrierScreen(
 
                     checked =
                         UpdateAffectedGroup.WALKING
-                                in barrierUpdateViewModel.selectedGroups,
+                                in barrierReportViewModel.selectedGroups, // GEÄNDERT:
 
                     onCheckedChange = {
-                        barrierUpdateViewModel.toggleGroup(
+                        barrierReportViewModel.toggleGroup( // GEÄNDERT:
                             UpdateAffectedGroup.WALKING
                         )
                     }
@@ -123,10 +123,10 @@ fun ReportBarrierScreen(
 
                     checked =
                         UpdateAffectedGroup.SEEING
-                                in barrierUpdateViewModel.selectedGroups,
+                                in barrierReportViewModel.selectedGroups, // GEÄNDERT:
 
                     onCheckedChange = {
-                        barrierUpdateViewModel.toggleGroup(
+                        barrierReportViewModel.toggleGroup( // GEÄNDERT:
                             UpdateAffectedGroup.SEEING
                         )
                     }
@@ -136,10 +136,10 @@ fun ReportBarrierScreen(
 
                     checked =
                         UpdateAffectedGroup.HEARING
-                                in barrierUpdateViewModel.selectedGroups,
+                                in barrierReportViewModel.selectedGroups, // GEÄNDERT:
 
                     onCheckedChange = {
-                        barrierUpdateViewModel.toggleGroup(
+                        barrierReportViewModel.toggleGroup( // GEÄNDERT:
                             UpdateAffectedGroup.HEARING
                         )
                     }
@@ -149,10 +149,10 @@ fun ReportBarrierScreen(
 
                     checked =
                         UpdateAffectedGroup.OTHER
-                                in barrierUpdateViewModel.selectedGroups,
+                                in barrierReportViewModel.selectedGroups, // GEÄNDERT:
 
                     onCheckedChange = {
-                        barrierUpdateViewModel.toggleGroup(
+                        barrierReportViewModel.toggleGroup( // GEÄNDERT:
                             UpdateAffectedGroup.OTHER
                         )
                     }
@@ -257,12 +257,12 @@ fun ReportOption(
 fun PreviewReportBarrierScreen(){
 
     val navController = rememberNavController()
-    val barrierUpdateViewModel = BarrierUpdateViewModel()
+    val barrierReportViewModel = BarrierReportViewModel() // GEÄNDERT:
 
     Team_Koeln_BonnTheme {
         ReportBarrierScreen(
             navController = navController,
-            barrierUpdateViewModel = barrierUpdateViewModel
+            barrierReportViewModel = barrierReportViewModel // GEÄNDERT:
         )
     }
 }

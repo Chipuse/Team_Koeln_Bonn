@@ -24,17 +24,11 @@ import com.example.team_koeln_bonn.presentation.ui.screens.menu.MenuScreen
 import com.example.team_koeln_bonn.presentation.ui.screens.report.ReportBarrierScreen
 import com.example.team_koeln_bonn.presentation.ui.screens.report.ReportBarrierDescriptionScreen
 import com.example.team_koeln_bonn.presentation.ui.screens.report.ReportBarrierSuccessScreen
-<<<<<<< Updated upstream
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
-
-=======
 import com.example.team_koeln_bonn.presentation.ui.screens.report.UpdateBarrierScreenTwo
 import com.example.team_koeln_bonn.presentation.ui.screens.report.UpdateBarrierScreenThree
 import com.example.team_koeln_bonn.presentation.ui.screens.report.UpdateBarrierScreenFour
-import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
->>>>>>> Stashed changes
+import com.example.team_koeln_bonn.presentation.viewModel.BarrierReportViewModel
 
 //entrypoint for our appscreens
 @Composable
@@ -42,12 +36,11 @@ fun OurApp(
     //viewmodel,
     navController : NavHostController = rememberNavController()
 ){
-<<<<<<< Updated upstream
-    val barrierUpdateViewModel: BarrierUpdateViewModel = viewModel()
-=======
+
+    val barrierReportViewModel: BarrierReportViewModel = viewModel() //gemeinsames Viewmodel für ReportBarrierDescription und dings ReportBarrierScreen unterschiedliche Funktionen jeder hat eigene ViewModel
     val barrierUpdateViewModel : BarrierUpdateViewModel = viewModel() //gemeinsames ViewModel UpdateBarrierScreenTwo und UpdateBarrierThree
 
->>>>>>> Stashed changes
+
 
     Scaffold(
         modifier = Modifier,
@@ -75,11 +68,12 @@ fun OurApp(
                     )
                 }
 
+                //hier geändert die ViewModel getrennt passend zu ReportBarrier
                 composable(route = AppScreen.Report.name){
                     ReportBarrierScreen(
                         //modifier = Modifier.fillMaxSize()
                         navController = navController,
-                        barrierUpdateViewModel = barrierUpdateViewModel
+                        barrierReportViewModel = barrierReportViewModel //hier geändert
                     )
                 }
 
@@ -93,7 +87,7 @@ fun OurApp(
                 composable(route = AppScreen.ReportBarrierDescriptionScreen.name) {
                     ReportBarrierDescriptionScreen(
                         navController = navController,
-                        barrierUpdateViewModel = barrierUpdateViewModel
+                        barrierReportViewModel = barrierReportViewModel //hier auch
                     )
                 }
 
@@ -104,7 +98,7 @@ fun OurApp(
                 composable(route = AppScreen.ReportBarrierScreen.name) {
                     ReportBarrierScreen(
                         navController = navController,
-                        barrierUpdateViewModel = barrierUpdateViewModel
+                        barrierReportViewModel = barrierReportViewModel // auch
                     )
                 }
 
