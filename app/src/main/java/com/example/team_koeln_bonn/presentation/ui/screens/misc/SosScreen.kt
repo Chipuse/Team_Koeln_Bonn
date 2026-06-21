@@ -48,7 +48,7 @@ fun SosScreen() {
         SosBar(
             title = "COMMUNITY ANFRAGEN",
             number = "",
-            color = AppOrange
+            color = AppBlau
         )
     }
 }

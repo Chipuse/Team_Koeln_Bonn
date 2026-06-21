@@ -49,7 +49,7 @@ fun CommunityScreen() {
         CommunityBar(
             "Uni-Chat",
             Icons.Outlined.School,
-            AppOrange
+            AppBlau
         )
         Spacer(modifier = Modifier.height(18.dp))
 

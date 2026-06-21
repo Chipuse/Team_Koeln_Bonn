@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 
 //Basically hier wurden die Farben von Color.kt genommen und es praktisch einzusetzen
 private val LightColorScheme = lightColorScheme(
-    primary = AppOrange,
+    primary = AppBlau,
     secondary = AppBlue,
     tertiary = AppPurple,
 
