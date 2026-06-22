@@ -5,6 +5,7 @@ import android.os.Build
 import androidx.annotation.RequiresExtension
 import com.example.team_koeln_bonn.common.Resource
 import com.example.team_koeln_bonn.data.remote.dto.toBarrier
+import com.example.team_koeln_bonn.data.repository.BarrierRepositoryImpl
 import com.example.team_koeln_bonn.domain.model.Barrier
 import com.example.team_koeln_bonn.domain.repository.BarrierRepository
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +15,7 @@ import java.io.IOException
 
 // the tutorial uses component injection here to make the refernce to the repository not hard coded
 class GetBarriersUseCase  (
-    private val repository: BarrierRepository
+    private val repository: BarrierRepository = BarrierRepositoryImpl()
 ) {
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     operator fun invoke(): Flow<Resource<List<Barrier>>> = flow{

@@ -1,5 +1,7 @@
 package com.example.team_koeln_bonn.presentation.ui
 
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -31,6 +33,7 @@ import com.example.team_koeln_bonn.presentation.ui.screens.report.UpdateBarrierS
 import com.example.team_koeln_bonn.presentation.viewModel.BarrierReportViewModel
 
 //entrypoint for our appscreens
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun OurApp(
     //viewmodel,
@@ -80,7 +83,8 @@ fun OurApp(
                 composable(route = AppScreen.Map.name){
                     MapScreen(
                         //information to display mapscreen correctly
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize(),
+                        navController = navController
                     )
                 }
 

@@ -67,18 +67,18 @@ fun CommunityChat(modifier : Modifier = Modifier){
     )
 }
 
-fun CreateMessageList() : List<com.example.team_koeln_bonn.presentation.ui.composables.Message>{
-    var messages : MutableList<com.example.team_koeln_bonn.presentation.ui.composables.Message> = mutableListOf<com.example.team_koeln_bonn.presentation.ui.composables.Message>()
+fun CreateMessageList() : List<Message>{
+    var messages : MutableList<Message> = mutableListOf<Message>()
     for (i in 1..23) {
         messages.add(
-            _root_ide_package_.com.example.team_koeln_bonn.presentation.ui.composables.Message(
+            Message(
                 author = "Maria",
                 body = "Text $i"
             )
         )
         if(i%3 == 0)
             messages.add(
-                _root_ide_package_.com.example.team_koeln_bonn.presentation.ui.composables.Message(
+                Message(
                     left = false,
                     author = "Robert",
                     body = "Answer to $i"
@@ -89,10 +89,10 @@ fun CreateMessageList() : List<com.example.team_koeln_bonn.presentation.ui.compo
 }
 
 @Composable
-fun Conversation(messages: List<com.example.team_koeln_bonn.presentation.ui.composables.Message>) {
+fun Conversation(messages: List<Message>) {
     LazyColumn(modifier = Modifier.fillMaxWidth(), ) {
         items(messages) { message ->
-            _root_ide_package_.com.example.team_koeln_bonn.presentation.ui.composables.MessageCard(
+            MessageCard(
                 message
             )
         }
@@ -100,7 +100,7 @@ fun Conversation(messages: List<com.example.team_koeln_bonn.presentation.ui.comp
 }
 
 @Composable
-fun MessageCard(msg: com.example.team_koeln_bonn.presentation.ui.composables.Message) {
+fun MessageCard(msg: Message) {
     var arrangment = Arrangement.End
     if(msg.left)
         arrangment = Arrangement.Start

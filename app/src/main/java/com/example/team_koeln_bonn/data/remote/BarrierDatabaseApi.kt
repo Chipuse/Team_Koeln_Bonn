@@ -7,3 +7,11 @@ interface BarrierDatabaseApi {
 
     suspend fun getBarriers() : List<BarrierDto>
 }
+
+class BarrierDatabaseApiMockup : BarrierDatabaseApi{
+    override suspend fun getBarriers(): List<BarrierDto> {
+        return emptyList()
+        //TODO("Not yet implemented")
+    }
+
+}
