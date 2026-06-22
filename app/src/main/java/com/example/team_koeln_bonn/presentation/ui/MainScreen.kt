@@ -80,7 +80,8 @@ fun OurApp(
                 composable(route = AppScreen.Map.name){
                     MapScreen(
                         //information to display mapscreen correctly
-                        modifier = Modifier.fillMaxSize()
+                        modifier = Modifier.fillMaxSize(),
+                        navController
                     )
                 }
 
