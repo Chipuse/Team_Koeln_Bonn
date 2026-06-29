@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -13,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.team_koeln_bonn"
-        minSdk = 24
+        minSdk = 32
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -66,4 +67,8 @@ dependencies {
 
     //für Navigation nötig? Von Ceyda
     implementation("androidx.navigation:navigation-compose:2.8.0")
+
+    //FMC für push notifs von Ceyda
+    implementation(platform("com.google.firebase:firebase-bom:34.15.0"))
+    implementation("com.google.firebase:firebase-messaging")
 }
