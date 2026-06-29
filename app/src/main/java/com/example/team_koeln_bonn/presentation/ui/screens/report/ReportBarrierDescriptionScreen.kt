@@ -29,7 +29,7 @@ fun ReportBarrierDescriptionScreen(
     navController: NavController,
     barrierReportViewModel: BarrierReportViewModel = viewModel() // GEÄNDERT Viewmodel für Report:
 ) {
-    println("Viewmodel: " + barrierReportViewModel.hashCode())
+    //println("Viewmodel: " + barrierReportViewModel.hashCode())
 
     // Gesamter Screen
     Column(

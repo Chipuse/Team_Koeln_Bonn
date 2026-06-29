@@ -12,10 +12,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.team_koeln_bonn.presentation.ui.OurApp
 import com.example.team_koeln_bonn.presentation.ui.theme.Team_Koeln_BonnTheme
 import org.osmdroid.config.Configuration
+import android.util.Log
+import com.google.firebase.messaging.FirebaseMessaging
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.e("FCM_TOKEN", "Token konnte nicht geladen werden")
+                    return@addOnCompleteListener
+                }
+
+                val token = task.result
+                Log.d("FCM_TOKEN", token)
+            }
+
         enableEdgeToEdge()
         Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
         setContent {
