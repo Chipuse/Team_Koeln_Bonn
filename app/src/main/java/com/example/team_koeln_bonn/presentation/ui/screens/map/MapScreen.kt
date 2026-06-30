@@ -1,16 +1,27 @@
 package com.example.team_koeln_bonn.presentation.ui.screens.map
 
-import android.os.Build
-import androidx.annotation.RequiresExtension
+import android.Manifest
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
+import com.example.team_koeln_bonn.data.repository.LocationRepositoryImpl
 import com.example.team_koeln_bonn.presentation.ui.screens.AppScreen
-import com.example.team_koeln_bonn.presentation.viewModel.BarrierListState
 import com.example.team_koeln_bonn.presentation.viewModel.BarrierListViewModel
+import com.example.team_koeln_bonn.presentation.viewModel.LocationViewModel
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
@@ -18,19 +29,89 @@ import org.osmdroid.views.overlay.Marker
 
 @Composable
 @Preview
-fun DisplayMapScreen(){
+fun DisplayMapScreen() {
     //MapScreen()
 }
 
 @Composable
 fun MapScreen(
-    modifier : Modifier = Modifier,
+    modifier: Modifier = Modifier,
     navController: NavController,
-    barrierListViewModel: BarrierListViewModel = BarrierListViewModel()
-    ){
-    //da die osm library nur views unterstützt müssen wir per android view das einfügen:
+    barrierListViewModel: BarrierListViewModel
+) {
+    val context = LocalContext.current
+
+    // Eigene Info-UI vor dem Standortzugriff
+    val showLocationDialog = remember { mutableStateOf(true) }
+
+    // GPS-Repository und ViewModel
+    val locationRepository = remember {
+        LocationRepositoryImpl(context)
+    }
+
+    val locationViewModel = remember {
+        LocationViewModel(locationRepository)
+    }
+
+    val userLocation by locationViewModel.userLocation.collectAsState()
+
+    // Android-Standortberechtigung anfragen
+    val permissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        val granted =
+            permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true ||
+                    permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
+
+        if (granted) {
+            locationViewModel.startLocationTracking()
+        }
+    }
+
+    if (showLocationDialog.value) {
+        AlertDialog(
+            onDismissRequest = { },
+            title = {
+                Text("Standortzugriff")
+            },
+            text = {
+                Text(
+                    "Diese App verwendet Ihren aktuellen Standort, " +
+                            "um Ihre Position auf der Karte anzuzeigen und " +
+                            "Barrieren in Ihrer Umgebung besser zuzuordnen."
+                )
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        showLocationDialog.value = false
+
+                        permissionLauncher.launch(
+                            arrayOf(
+                                Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION
+                            )
+                        )
+                    }
+                ) {
+                    Text("Standort freigeben")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showLocationDialog.value = false
+                    }
+                ) {
+                    Text("Abbrechen")
+                }
+            }
+        )
+    }
+
+    // da die osm library nur views unterstützt müssen wir per android view das einfügen:
     AndroidView(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         factory = { context ->
             val mapView = MapView(context)
             mapView.setTileSource(TileSourceFactory.MAPNIK)
@@ -39,29 +120,48 @@ fun MapScreen(
             val barrierClickEventListener = OnBarrierClick(navController)
             val startPoint = GeoPoint(51.023097, 7.562391)
             mapView.controller.setCenter(startPoint)
-            //ToDo barrierListViewModel.state.value.barriers
-            var startMarker = Marker(mapView)
+            // ToDo barrierListViewModel.state.value.barriers
+            val startMarker = Marker(mapView)
             startMarker.position = startPoint
             startMarker.title = "Start Position"
             startMarker.setOnMarkerClickListener(barrierClickEventListener)
             mapView.overlays.add(startMarker)
             mapView
+        },
+
+        // Aktualisiert den Marker des aktuellen Nutzerstandorts, sobald neue GPS-Daten verfügbar sind
+        update = { mapView ->
+            userLocation?.let { location ->
+                val userPoint = GeoPoint(location.latitude, location.longitude)
+
+                // Entfernt vorherigen Standortmarker, damit immer aktuelle Position angezeigt wird
+                mapView.overlays.removeAll { overlay ->
+                    overlay is Marker && overlay.title == "Aktueller Standort"
+                }
+
+                // Erstellt neuen Marker für aktuellen Standort auf der Karte
+                val userMarker = Marker(mapView)
+                userMarker.position = userPoint
+                userMarker.title = "Aktueller Standort"
+
+                mapView.overlays.add(userMarker)
+                mapView.invalidate()
+            }
         }
     )
 }
 
-fun AddBarrierMarker(){
+fun AddBarrierMarker() {
 
 }
 
-class OnBarrierClick(val navController : NavController) : Marker.OnMarkerClickListener{
+class OnBarrierClick(val navController: NavController) : Marker.OnMarkerClickListener {
 
     override fun onMarkerClick(
         p0: Marker?,
         p1: MapView?
     ): Boolean {
-        navController.navigate(AppScreen.UpdateBarrierScreenTwo.name);
+        navController.navigate(AppScreen.UpdateBarrierScreenTwo.name)
         return true
     }
-
 }
