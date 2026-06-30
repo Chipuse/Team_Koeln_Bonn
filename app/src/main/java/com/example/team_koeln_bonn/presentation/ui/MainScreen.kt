@@ -28,6 +28,7 @@ import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
 import com.example.team_koeln_bonn.presentation.ui.screens.report.UpdateBarrierScreenTwo
 import com.example.team_koeln_bonn.presentation.ui.screens.report.UpdateBarrierScreenThree
 import com.example.team_koeln_bonn.presentation.ui.screens.report.UpdateBarrierScreenFour
+import com.example.team_koeln_bonn.presentation.viewModel.BarrierListViewModel
 import com.example.team_koeln_bonn.presentation.viewModel.BarrierReportViewModel
 
 //entrypoint for our appscreens
@@ -36,7 +37,7 @@ fun OurApp(
     //viewmodel,
     navController : NavHostController = rememberNavController()
 ){
-
+    val barrierListViewModel: BarrierListViewModel = viewModel()
     val barrierReportViewModel: BarrierReportViewModel = viewModel() //gemeinsames Viewmodel für ReportBarrierDescription und dings ReportBarrierScreen unterschiedliche Funktionen jeder hat eigene ViewModel
     val barrierUpdateViewModel : BarrierUpdateViewModel = viewModel() //gemeinsames ViewModel UpdateBarrierScreenTwo und UpdateBarrierThree
 
@@ -81,7 +82,8 @@ fun OurApp(
                     MapScreen(
                         //information to display mapscreen correctly
                         modifier = Modifier.fillMaxSize(),
-                        navController
+                        navController = navController,
+                        barrierListViewModel = barrierListViewModel
                     )
                 }
 
