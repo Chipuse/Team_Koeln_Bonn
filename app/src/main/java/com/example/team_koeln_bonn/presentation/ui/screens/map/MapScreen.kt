@@ -1,5 +1,6 @@
 package com.example.team_koeln_bonn.presentation.ui.screens.map
 
+import androidx.compose.runtime.LaunchedEffect
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -59,6 +60,14 @@ fun MapScreen(
         if (granted) {
             locationViewModel.startLocationTracking()
         }
+    }
+    LaunchedEffect(Unit) {
+        permissionLauncher.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
     }
 
 
