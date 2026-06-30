@@ -4,14 +4,9 @@ import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -41,8 +36,6 @@ fun MapScreen(
 ) {
     val context = LocalContext.current
 
-    // Eigene Info-UI vor dem Standortzugriff
-    val showLocationDialog = remember { mutableStateOf(true) }
 
     // GPS-Repository und ViewModel
     val locationRepository = remember {
@@ -68,46 +61,7 @@ fun MapScreen(
         }
     }
 
-    if (showLocationDialog.value) {
-        AlertDialog(
-            onDismissRequest = { },
-            title = {
-                Text("Standortzugriff")
-            },
-            text = {
-                Text(
-                    "Diese App verwendet Ihren aktuellen Standort, " +
-                            "um Ihre Position auf der Karte anzuzeigen und " +
-                            "Barrieren in Ihrer Umgebung besser zuzuordnen."
-                )
-            },
-            confirmButton = {
-                Button(
-                    onClick = {
-                        showLocationDialog.value = false
 
-                        permissionLauncher.launch(
-                            arrayOf(
-                                Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.ACCESS_COARSE_LOCATION
-                            )
-                        )
-                    }
-                ) {
-                    Text("Standort freigeben")
-                }
-            },
-            dismissButton = {
-                TextButton(
-                    onClick = {
-                        showLocationDialog.value = false
-                    }
-                ) {
-                    Text("Abbrechen")
-                }
-            }
-        )
-    }
 
     // da die osm library nur views unterstützt müssen wir per android view das einfügen:
     AndroidView(
