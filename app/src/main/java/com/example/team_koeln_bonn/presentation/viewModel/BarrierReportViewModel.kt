@@ -43,6 +43,9 @@ class BarrierReportViewModel (
                 is Resource.Success -> {
                     // successfully saved the barrier
                     //ToDo proceed from a loading pop up
+
+                    //Test von Ceyda
+                    Log.d("SAVE_BARRIER", "Barriere erfolgreich gespeichert!")
                 }
                 is Resource.Error -> {
                     _barrierState.value = BarrierState(
@@ -51,6 +54,8 @@ class BarrierReportViewModel (
                     //ToDo proceed from a loading pop up
                 }
                 is Resource.Loading -> {
+                    //Test von Ceyda
+                    Log.d("SAVE_BARRIER", "Speichere Barriere...")
                     _barrierState.value = BarrierState(isLoading = true)
                 }
             }

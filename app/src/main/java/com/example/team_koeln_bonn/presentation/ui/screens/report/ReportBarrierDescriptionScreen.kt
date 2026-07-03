@@ -64,32 +64,7 @@ fun ReportBarrierDescriptionScreen(
             .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 32.dp, vertical = 56.dp)
     ) {
-        //Header Pfeil + Titel
-        /*Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            // Zurück Pfeil
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Back",
 
-                modifier = Modifier
-                    .size(28.dp)
-                    .clickable {
-                        //Zur vorherigen Seite, keine Datenübergabe
-                        navController.popBackStack()
-                    }
-            )
-
-            // Abstand zwischen Pfeil und Titel
-            Spacer(modifier = Modifier.width(24.dp))
-
-            Text(
-                text = "Meldung",
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }*/
         // Abstand Header und Karte
         Spacer(modifier = Modifier.height(20.dp))
 
@@ -248,8 +223,8 @@ fun ReportBarrierDescriptionScreen(
                     Row(
                         modifier = Modifier.clickable {
 
-                            // später speichern
-                            // barrierReportViewModel.saveBarrier()
+                            barrierReportViewModel.prepareBarrier()
+                            barrierReportViewModel.saveBarrier()
 
                             navController.navigate(AppScreen.ReportBarrierSuccessScreen.name)
                         },
