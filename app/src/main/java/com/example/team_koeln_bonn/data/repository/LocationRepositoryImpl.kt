@@ -67,6 +67,7 @@ class LocationRepositoryImpl(
     }
 
     //Später wird hier Standort an Backend geschickt und gespeichert
+    //Mai: Nein wir werden immer nur den Standort als Teil eines Barrier Datenobjekts speichern :)
     override suspend fun saveLocation(location: UserLocation) {
         println("Standort für Backend vorbereitet: ${location.latitude}, ${location.longitude}")
     }

@@ -27,7 +27,7 @@ import com.example.team_koeln_bonn.presentation.viewModel.BarrierReportViewModel
 @Composable
 fun ReportBarrierDescriptionScreen(
     navController: NavController,
-    barrierReportViewModel: BarrierReportViewModel = viewModel() // GEÄNDERT Viewmodel für Report:
+    barrierReportViewModel: BarrierReportViewModel = BarrierReportViewModel() // GEÄNDERT Viewmodel für Report:
 ) {
     //println("Viewmodel: " + barrierReportViewModel.hashCode())
 

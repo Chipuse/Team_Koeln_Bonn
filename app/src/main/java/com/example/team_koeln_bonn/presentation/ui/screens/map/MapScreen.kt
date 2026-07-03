@@ -13,8 +13,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import com.example.team_koeln_bonn.data.repository.LocationRepositoryImpl
+import com.example.team_koeln_bonn.domain.model.Barrier
 import com.example.team_koeln_bonn.presentation.ui.screens.AppScreen
 import com.example.team_koeln_bonn.presentation.viewModel.BarrierListViewModel
 import com.example.team_koeln_bonn.presentation.viewModel.LocationViewModel
@@ -84,6 +86,13 @@ fun MapScreen(
             val startPoint = GeoPoint(51.023097, 7.562391)
             mapView.controller.setCenter(startPoint)
             // ToDo barrierListViewModel.state.value.barriers
+            barrierListViewModel.state.value.barriers.forEach { barrier ->
+                val barrierMarker = Marker(mapView)
+                barrierMarker.position = GeoPoint(barrier.coordinates[0], barrier.coordinates[1])
+                barrierMarker.title = barrier.description
+                //startMarker.setOnMarkerClickListener(barrierClickEventListener)
+                mapView.overlays.add(barrierMarker)
+            }
             val startMarker = Marker(mapView)
             startMarker.position = startPoint
             startMarker.title = "Start Position"
@@ -124,7 +133,9 @@ class OnBarrierClick(val navController: NavController) : Marker.OnMarkerClickLis
         p0: Marker?,
         p1: MapView?
     ): Boolean {
-        navController.navigate(AppScreen.UpdateBarrierScreenTwo.name)
+        navController.navigate(
+            AppScreen.UpdateBarrierScreenTwo.name
+        )
         return true
     }
 }

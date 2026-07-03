@@ -1,13 +1,52 @@
 package com.example.team_koeln_bonn.presentation.viewModel
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.team_koeln_bonn.common.Resource
+import com.example.team_koeln_bonn.domain.model.Barrier
 import com.example.team_koeln_bonn.domain.model.UpdateAffectedGroup
+import com.example.team_koeln_bonn.domain.use_case.get_barriers.SaveBarrierUseCase
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlin.collections.plus
 
-class BarrierUpdateViewModel : ViewModel() {
+class BarrierUpdateViewModel (
+    private val saveBarrierUseCase: SaveBarrierUseCase = SaveBarrierUseCase()
+): ViewModel() {
+    //compared to the reportviewmodel, here we start the viewmodel immediately with the barrier we want to edit
+    //holds the floating data we want to save into the database. _barrierstate.barrier needs to be edited by the other functions of this viewmodel!
+    fun initUpdate(barrier : Barrier){
+        _barrierState.value.barrier = barrier
+    }
+
+    private val _barrierState = mutableStateOf(BarrierState())
+    val barrierState: State<BarrierState> = _barrierState
+
+    fun saveBarrier(){
+        //will save the current _barrierState to the database
+        saveBarrierUseCase(_barrierState.value.barrier).onEach { result ->
+            when (result) {
+                is Resource.Success -> {
+                    // successfully saved the barrier
+                    //ToDo proceed from a loading pop up
+                }
+                is Resource.Error -> {
+                    _barrierState.value = BarrierState(
+                        error = result.message ?: "An unexpected error occured"
+                    )
+                    //ToDo proceed from a loading pop up
+                }
+                is Resource.Loading -> {
+                    _barrierState.value = BarrierState(isLoading = true)
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
 
     // Ausgewählte betroffene Personengruppen
     var selectedGroups by mutableStateOf(setOf<UpdateAffectedGroup>())

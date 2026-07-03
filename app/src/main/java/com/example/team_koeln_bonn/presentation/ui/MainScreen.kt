@@ -38,7 +38,7 @@ fun OurApp(
     navController : NavHostController = rememberNavController()
 ){
     val barrierListViewModel: BarrierListViewModel = viewModel()
-    val barrierReportViewModel: BarrierReportViewModel = viewModel() //gemeinsames Viewmodel für ReportBarrierDescription und dings ReportBarrierScreen unterschiedliche Funktionen jeder hat eigene ViewModel
+    val barrierReportViewModel : BarrierReportViewModel = viewModel() //gemeinsames Viewmodel für ReportBarrierDescription und dings ReportBarrierScreen unterschiedliche Funktionen jeder hat eigene ViewModel
     val barrierUpdateViewModel : BarrierUpdateViewModel = viewModel() //gemeinsames ViewModel UpdateBarrierScreenTwo und UpdateBarrierThree
 
 

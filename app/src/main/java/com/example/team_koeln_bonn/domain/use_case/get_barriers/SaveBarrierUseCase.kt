@@ -1,11 +1,8 @@
 package com.example.team_koeln_bonn.domain.use_case.get_barriers
 
-import android.net.http.HttpException
-import android.os.Build
-import androidx.annotation.RequiresExtension
 import com.example.team_koeln_bonn.common.Resource
-import com.example.team_koeln_bonn.data.remote.dto.BarrierDto
 import com.example.team_koeln_bonn.data.remote.dto.toBarrier
+import com.example.team_koeln_bonn.data.remote.dto.toBarrierDto
 import com.example.team_koeln_bonn.data.repository.BarrierRepositoryImpl
 import com.example.team_koeln_bonn.domain.model.Barrier
 import com.example.team_koeln_bonn.domain.repository.BarrierRepository
@@ -13,16 +10,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.IOException
 
-
-// the tutorial uses component injection here to make the refernce to the repository not hard coded
-class GetBarriersUseCase  (
+class SaveBarrierUseCase (
     private val repository: BarrierRepository = BarrierRepositoryImpl()
 ) {
-    operator fun invoke(action: (List<BarrierDto>) -> Unit): Flow<Resource<List<Barrier>>> = flow{
+    operator fun invoke(barrier: Barrier): Flow<Resource<Barrier>> = flow{
         try {
             emit(Resource.Loading())
-            val barriers = repository.getBarriers(action).map {it.toBarrier()}
-            emit(Resource.Success(barriers))
+            val barrier = repository.saveBarrier(barrier.toBarrierDto())
+            emit(Resource.Success(barrier.toBarrier()))
         } /*catch (e : HttpException){
             emit(Resource.Error(e.localizedMessage ?: "An unexpected Error happened"))
 

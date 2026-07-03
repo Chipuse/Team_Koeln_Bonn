@@ -71,6 +71,7 @@ dependencies {
     //FMC für push notifs von Ceyda
     implementation(platform("com.google.firebase:firebase-bom:34.15.0"))
     implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-firestore")
 
     //Google Play Service Location (GPS)
     implementation("com.google.android.gms:play-services-location:21.3.0")
