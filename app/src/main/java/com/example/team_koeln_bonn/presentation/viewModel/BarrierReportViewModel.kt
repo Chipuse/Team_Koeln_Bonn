@@ -13,6 +13,12 @@ import com.example.team_koeln_bonn.domain.use_case.get_barriers.SaveBarrierUseCa
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlin.collections.plus
+import android.Manifest
+import android.content.Context
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
+import com.google.android.gms.location.LocationServices
+import android.util.Log
 
 class BarrierReportViewModel (
     private val saveBarrierUseCase: SaveBarrierUseCase = SaveBarrierUseCase()
@@ -60,6 +66,13 @@ class BarrierReportViewModel (
     var description by mutableStateOf("")
         private set
 
+        //koordinaten GPS Ort ermitteln
+    var latitude by mutableStateOf<Double?>(null)
+            private set
+
+    var longitude by mutableStateOf<Double?>(null)
+        private set
+
     // Fügt eine Gruppe hinzu oder entfernt sie wieder
     fun toggleGroup(group: UpdateAffectedGroup) {
         selectedGroups =
@@ -73,5 +86,34 @@ class BarrierReportViewModel (
     // Aktualisiert die Beschreibung
     fun updateDescription(value: String) {
         description = value
+
+        _barrierState.value.barrier.description = value
     }
+
+    fun updateCoordinates(
+        lat: Double,
+        lon: Double
+    ) {
+
+        latitude = lat
+        longitude = lon
+
+        _barrierState.value.barrier.coordinates =
+            mutableListOf(lat, lon)
+    }
+
+    fun prepareBarrier() {
+
+        _barrierState.value.barrier.description = description
+
+        _barrierState.value.barrier.coordinates = mutableListOf(
+            latitude ?: 0.0,
+            longitude ?: 0.0
+        )
+
+        _barrierState.value.barrier.tags =
+            selectedGroups.map { it.name }.toMutableList()
+    }
+
+
 }

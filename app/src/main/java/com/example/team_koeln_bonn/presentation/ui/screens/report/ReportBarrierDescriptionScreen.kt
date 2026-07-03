@@ -23,14 +23,40 @@ import androidx.navigation.compose.rememberNavController
 import com.example.team_koeln_bonn.presentation.ui.screens.AppScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.team_koeln_bonn.presentation.viewModel.BarrierReportViewModel
+import androidx.compose.ui.platform.LocalContext
+import android.util.Log
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import com.example.team_koeln_bonn.data.repository.LocationRepositoryImpl
+import com.example.team_koeln_bonn.presentation.viewModel.LocationViewModel
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.material.icons.filled.ArrowForward
 
 @Composable
 fun ReportBarrierDescriptionScreen(
     navController: NavController,
     barrierReportViewModel: BarrierReportViewModel = BarrierReportViewModel() // GEÄNDERT Viewmodel für Report:
 ) {
-    //println("Viewmodel: " + barrierReportViewModel.hashCode())
 
+    val context = LocalContext.current
+    val locationRepository = remember {
+        LocationRepositoryImpl(context)
+    }
+
+    val locationViewModel = remember {
+        LocationViewModel(locationRepository)
+    }
+
+    val userLocation by locationViewModel.userLocation.collectAsState()
+    LaunchedEffect(userLocation) {
+        userLocation?.let {
+            barrierReportViewModel.updateCoordinates(
+                it.latitude,
+                it.longitude
+            )
+        }
+    }
     // Gesamter Screen
     Column(
         modifier = Modifier
@@ -71,8 +97,8 @@ fun ReportBarrierDescriptionScreen(
         Card(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .width(350.dp)
-                .height(470.dp),
+                .fillMaxWidth()
+                .fillMaxHeight(),
             colors = CardDefaults.cardColors(
                 containerColor = Color(0xFFEFEFEF)
             )
@@ -152,25 +178,99 @@ fun ReportBarrierDescriptionScreen(
 
                 Button(
                     onClick = {
-                        //Später GPS Zugriff anfordern. Aktuell nur Navigation zum nächsten Schritt
-                        navController.navigate(AppScreen.ReportBarrierSuccessScreen.name)
+                        //Jetzt mit GPS
+                        Log.d("Button TEST", "Button gedrückt")
+                        locationViewModel.startLocationTracking()
                     },
                     modifier = Modifier.width(170.dp),
-
                     colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFFD7E4FF),
                         contentColor = Color.Black
                     )
                 ) {
-
                     Text(
                         text = "Ort ermitteln",
                         fontSize = 18.sp
                     )
                 }
 
+                Spacer(modifier = Modifier.height(16.dp))
+
+                barrierReportViewModel.latitude?.let { lat ->
+                    Text(
+                        text = "Breitengrad: %.6f".format(lat),
+                        fontSize = 16.sp
+                    )
+                }
+
+                barrierReportViewModel.longitude?.let { lon ->
+                    Text(
+                        text = "Längengrad: %.6f".format(lon),
+                        fontSize = 16.sp
+                    )
+                }
+
+
+
                 // Schiebt die Navigation nach unten
                 Spacer(modifier = Modifier.weight(1f))
+
+                //Meldubg abgeben pfeil
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    //Zurück
+                    Row(
+                        modifier = Modifier.clickable {
+
+                            navController.navigate(AppScreen.ReportBarrierScreen.name)
+                        }
+                            .padding(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "zurück"
+                        )
+
+                        Spacer(modifier = Modifier.width(6.dp))
+
+                        Text(
+                            text = "zurück",
+
+                            fontSize = 18.sp
+                        )
+                    }
+
+                    // Meldung abgeben
+                    Row(
+                        modifier = Modifier.clickable {
+
+                            // später speichern
+                            // barrierReportViewModel.saveBarrier()
+
+                            navController.navigate(AppScreen.ReportBarrierSuccessScreen.name)
+                        },
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+
+                        Text(
+                            text = "Meldung abgeben",
+                            fontSize = 18.sp
+                        )
+
+                        Spacer(modifier = Modifier.width(6.dp))
+
+                        Icon(
+                            imageVector = Icons.Default.ArrowForward,
+                            contentDescription = "weiter"
+                        )
+                    }
+                }
+                    }
+                }
 
                 //Untere Navigation. Erstes zurück
                 Row(
@@ -194,8 +294,7 @@ fun ReportBarrierDescriptionScreen(
                 }
             }
         }
-    }
-}
+
 
 
 

@@ -18,6 +18,8 @@ class PushNotificationService: FirebaseMessagingService() {
 
         Log.d("FCM_MESSAGE", "Nachricht erhalten!")
 
+        Log.d("FCM", message.data.toString())
+
     }
 
 }

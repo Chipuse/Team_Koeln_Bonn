@@ -9,5 +9,7 @@ enum class UpdateAffectedGroup(val label: String) {
 
 data class BarrierUpdate(
     val affectedGroups: List<UpdateAffectedGroup> = emptyList(),
-    val description: String = ""
+    val description: String = "",
+    val latitude: Double? = null,
+    val longitude: Double? = null
 )

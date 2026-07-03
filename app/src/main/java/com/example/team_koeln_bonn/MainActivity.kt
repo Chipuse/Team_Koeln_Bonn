@@ -16,11 +16,16 @@ import com.example.team_koeln_bonn.presentation.ui.theme.Team_Koeln_BonnTheme
 import org.osmdroid.config.Configuration
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessaging
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import androidx.core.content.ContextCompat.getSystemService
 
 class MainActivity : ComponentActivity() {
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        createNotificationChannel()
 
         FirebaseMessaging.getInstance().token
             .addOnCompleteListener { task ->
@@ -39,6 +44,22 @@ class MainActivity : ComponentActivity() {
             Team_Koeln_BonnTheme {
                 OurApp()
             }
+        }
+    }
+
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            val channel = NotificationChannel(
+                "barrier_channel",
+                "Barrier Updates",
+                NotificationManager.IMPORTANCE_HIGH
+            )
+
+            channel.description = "Benachrichtigungen über neue Barrieren"
+
+            val manager = getSystemService(NotificationManager::class.java)
+            manager.createNotificationChannel(channel)
         }
     }
 }
