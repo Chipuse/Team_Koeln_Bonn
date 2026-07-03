@@ -225,6 +225,7 @@ fun ReportBarrierDescriptionScreen(
 
                             barrierReportViewModel.prepareBarrier()
                             barrierReportViewModel.saveBarrier()
+                            barrierReportViewModel.resetBarrier()
 
                             navController.navigate(AppScreen.ReportBarrierSuccessScreen.name)
                         },

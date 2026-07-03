@@ -120,5 +120,16 @@ class BarrierReportViewModel (
             selectedGroups.map { it.name }.toMutableList()
     }
 
+    fun resetBarrier() {
+
+        description = ""
+
+        latitude = null
+        longitude = null
+
+        selectedGroups = emptySet()
+
+        _barrierState.value = BarrierState()
+    }
 
 }
