@@ -44,4 +44,8 @@ class FirestoreApiImpl(
     override suspend fun getBarrierById(id: String): BarrierDto {
         TODO("Not yet implemented")
     }
+
+    override suspend fun deleteBarrier(barrier: BarrierDto): BarrierDto {
+        TODO("Not yet implemented")
+    }
 }

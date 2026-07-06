@@ -6,4 +6,6 @@ interface BarrierRepository {
     suspend fun getBarriers(action: (List<BarrierDto>) -> Unit): List<BarrierDto>
     //ToDo suspend fun "fetch image of barrier"(barrierId: String)...
     suspend fun saveBarrier(barrier: BarrierDto): BarrierDto
+
+    suspend fun deleteBarrier(barrier: BarrierDto) : BarrierDto
 }

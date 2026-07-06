@@ -19,6 +19,7 @@ import com.example.team_koeln_bonn.data.repository.LocationRepositoryImpl
 import com.example.team_koeln_bonn.domain.model.Barrier
 import com.example.team_koeln_bonn.presentation.ui.screens.AppScreen
 import com.example.team_koeln_bonn.presentation.viewModel.BarrierListViewModel
+import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
 import com.example.team_koeln_bonn.presentation.viewModel.LocationViewModel
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
@@ -35,7 +36,8 @@ fun DisplayMapScreen() {
 fun MapScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    barrierListViewModel: BarrierListViewModel
+    barrierListViewModel: BarrierListViewModel,
+    //updateBarrierViewModel : BarrierUpdateViewModel
 ) {
     val context = LocalContext.current
 
@@ -134,6 +136,7 @@ class OnBarrierClick(val navController: NavController) : Marker.OnMarkerClickLis
         p1: MapView?
     ): Boolean {
         navController.navigate(
+            //ToDO set updateviewmodel init update barrier
             AppScreen.UpdateBarrierScreenTwo.name
         )
         return true

@@ -15,4 +15,8 @@ class BarrierRepositoryImpl(
     override suspend fun saveBarrier(barrier: BarrierDto): BarrierDto {
         return api.saveBarrier(barrier)
     }
+
+    override suspend fun deleteBarrier(barrier: BarrierDto): BarrierDto {
+        TODO("Not yet implemented")
+    }
 }

@@ -10,5 +10,7 @@ interface BarrierDatabaseApi {
 
     suspend fun saveBarrier(barrier : BarrierDto) : BarrierDto
     suspend fun getBarrierById(id : String) : BarrierDto
+
+    suspend fun deleteBarrier(barrier : BarrierDto) : BarrierDto
 }
 
