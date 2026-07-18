@@ -61,7 +61,10 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended")
 
     //Neu dazu für Viewmodel
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+
     //open Street map Libraries
     implementation("org.osmdroid:osmdroid-android:6.1.20")
 

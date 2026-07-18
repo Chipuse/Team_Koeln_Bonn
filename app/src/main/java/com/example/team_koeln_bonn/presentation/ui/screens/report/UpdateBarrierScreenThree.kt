@@ -27,11 +27,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.team_koeln_bonn.presentation.ui.theme.MeldungHintergrund
 import com.example.team_koeln_bonn.presentation.ui.theme.Team_Koeln_BonnTheme
+import com.example.team_koeln_bonn.presentation.viewModel.BarrierListViewModel
 import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
 
 @Composable
 fun UpdateBarrierScreenThree(
     viewModel: BarrierUpdateViewModel = viewModel(),
+    barrierListViewModel: BarrierListViewModel = viewModel(),
     onBackClick: () -> Unit, // Klick zwischen den Screens
     onSubmitClick: () -> Unit // Meldung abschicken
 ) {
@@ -193,11 +195,23 @@ fun UpdateBarrierScreenThree(
                 TextButton(
                     onClick = {
                         showConfirmDialog = false
-                        onSubmitClick()
+
+                        // Speichert die Änderungen der vorhandenen Barriere in Firestore
+                        viewModel.updateBarrier { updatedBarrier ->
+
+                            // Aktualisiert die Barriere auch in der lokalen Liste,
+                            // damit die Änderung sofort auf der Karte sichtbar ist
+                            barrierListViewModel.updateBarrierLocally(updatedBarrier)
+
+                            // Navigiert erst nach erfolgreichem Update zum nächsten Screen
+                            onSubmitClick()
+                        }
                     }
                 ) {
                     Text(text = "Ja")
                 }
+
+
             },
             dismissButton = {
                 TextButton(

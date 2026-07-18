@@ -1,8 +1,82 @@
 package com.example.team_koeln_bonn.presentation.ui.screens.map
 
+import com.example.team_koeln_bonn.domain.model.Barrier
+import org.osmdroid.util.GeoPoint
+import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 
-class BarrierMarker //: Marker
-{
+// Erstellt einen Marker für eine Barriere
+fun addBarrierMarker(
+    mapView: MapView,
+    barrier: Barrier,
+    onBarrierClick: (Barrier) -> Unit
+) {
+    // Verhindert einen Absturz, falls keine vollständigen Koordinaten vorhanden sind
+    if (barrier.coordinates.size < 2) {
+        return
+    }
 
+    val barrierMarker = Marker(mapView)
+
+    barrierMarker.position = GeoPoint(
+        barrier.coordinates[0],
+        barrier.coordinates[1]
+    )
+
+    barrierMarker.title = barrier.description
+
+    // Speichert die ID der Barriere im Marker,
+    // damit Barrieremarker später gezielt entfernt werden können
+    barrierMarker.relatedObject = barrier.id
+
+    // Zeigt beim Klick die normale Marker-Sprechblase
+    // und zusätzlich die Barrieredetails auf der Karte
+    barrierMarker.setOnMarkerClickListener { marker, currentMapView ->
+        onBarrierClick(barrier)
+
+        // Öffnet die normale OSM-Info-Sprechblase mit dem Markertitel
+        marker.showInfoWindow()
+
+        // Zentriert die Karte auf den angeklickten Marker
+        currentMapView.controller.animateTo(marker.position)
+
+        true
+    }
+
+    mapView.overlays.add(barrierMarker)
+}
+
+// Entfernt alle bisherigen Barrieremarker von der Karte
+fun removeBarrierMarkers(
+    mapView: MapView
+) {
+    mapView.overlays.removeAll { overlay ->
+        overlay is Marker &&
+                overlay.relatedObject != null
+    }
+}
+
+// Aktualisiert den Marker des aktuellen Nutzerstandorts
+fun updateUserLocationMarker(
+    mapView: MapView,
+    latitude: Double,
+    longitude: Double
+) {
+    // Entfernt den vorherigen Standortmarker,
+    // damit immer nur die aktuelle Position angezeigt wird
+    mapView.overlays.removeAll { overlay ->
+        overlay is Marker &&
+                overlay.title == "Aktueller Standort"
+    }
+
+    val userMarker = Marker(mapView)
+
+    userMarker.position = GeoPoint(
+        latitude,
+        longitude
+    )
+
+    userMarker.title = "Aktueller Standort"
+
+    mapView.overlays.add(userMarker)
 }

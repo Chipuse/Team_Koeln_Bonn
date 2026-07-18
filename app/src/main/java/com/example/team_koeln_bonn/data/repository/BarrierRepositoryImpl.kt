@@ -8,7 +8,10 @@ import com.example.team_koeln_bonn.domain.repository.BarrierRepository
 class BarrierRepositoryImpl(
     private val api: BarrierDatabaseApi = FirestoreApiImpl()
 ) : BarrierRepository {
-    override suspend fun getBarriers(action: (List<BarrierDto>) -> Unit): List<BarrierDto> {
+
+    override suspend fun getBarriers(
+        action: (List<BarrierDto>) -> Unit
+    ): List<BarrierDto> {
         return api.getBarriers(action = action)
     }
 
@@ -16,7 +19,13 @@ class BarrierRepositoryImpl(
         return api.saveBarrier(barrier)
     }
 
-    override suspend fun deleteBarrier(barrier: BarrierDto): BarrierDto {
-        TODO("Not yet implemented")
+    // Aktualisiert eine bestehende Barriere in Firestore
+    override suspend fun updateBarrier(barrier: BarrierDto): BarrierDto {
+        return api.updateBarrier(barrier)
+    }
+
+    // Löscht eine Barriere anhand ihrer ID aus Firestore
+    override suspend fun deleteBarrier(id: String) {
+        api.deleteBarrier(id)
     }
 }

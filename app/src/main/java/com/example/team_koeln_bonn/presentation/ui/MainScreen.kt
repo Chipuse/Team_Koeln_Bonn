@@ -83,7 +83,8 @@ fun OurApp(
                         //information to display mapscreen correctly
                         modifier = Modifier.fillMaxSize(),
                         navController = navController,
-                        barrierListViewModel = barrierListViewModel
+                        barrierListViewModel = barrierListViewModel,
+                        barrierUpdateViewModel = barrierUpdateViewModel
                     )
                 }
 
