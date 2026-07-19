@@ -120,7 +120,7 @@ fun MapScreen(
             factory = { context ->
                 val mapView = MapView(context)
 
-                mapView.setTileSource(TileSourceFactory.OpenTopo)
+                mapView.setTileSource(CustomTileSource() )//TileSourceFactory.OpenTopo)
                 mapView.setMultiTouchControls(true)
                 mapView.controller.setZoom(15.0)
 
