@@ -120,7 +120,7 @@ fun MapScreen(
             factory = { context ->
                 val mapView = MapView(context)
 
-                mapView.setTileSource(TileSourceFactory.MAPNIK)
+                mapView.setTileSource(TileSourceFactory.OpenTopo)
                 mapView.setMultiTouchControls(true)
                 mapView.controller.setZoom(15.0)
 
@@ -145,12 +145,11 @@ fun MapScreen(
                     )
                 }
 
-                val startMarker = Marker(mapView)
-                startMarker.position = startPoint
-                startMarker.title = "Start Position"
-                startMarker.setOnMarkerClickListener(barrierClickEventListener)
-
-                mapView.overlays.add(startMarker)
+                //val startMarker = Marker(mapView)
+                //startMarker.position = startPoint
+                //startMarker.title = "Start Position"
+                //startMarker.setOnMarkerClickListener(barrierClickEventListener)
+                //mapView.overlays.add(startMarker)
 
                 mapView
             },

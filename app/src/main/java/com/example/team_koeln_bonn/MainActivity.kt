@@ -40,6 +40,8 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         Configuration.getInstance().load(this, PreferenceManager.getDefaultSharedPreferences(this))
+        Configuration.getInstance().userAgentValue =  packageName + " (+contact: mvollmer.dev@gmail.com)" //added contactinformation to user agent since some mapprovider require that
+
         setContent {
             Team_Koeln_BonnTheme {
                 OurApp()
