@@ -34,7 +34,7 @@ fun MenuScreen() {
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            horizontalArrangement = Arrangement.Center
         ) {
             MenuButton(
                 text = "Karten",
@@ -42,11 +42,14 @@ fun MenuScreen() {
                 color = AppBlue
             )
 
+            /*
             MenuButton(
                 text = "SOS",
                 icon = Icons.Outlined.Warning,
                 color = AppLightRed
             )
+
+             */
         }
 
         Spacer(modifier = Modifier.height(30.dp))
@@ -54,13 +57,17 @@ fun MenuScreen() {
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            horizontalArrangement = Arrangement.Center
         ) {
+
+            /*
             MenuButton(
                 text = "Chat",
                 icon = Icons.Outlined.Chat,
                 color = AppOrange
             )
+
+             */
 
             MenuButton(
                 text = "Melden",
