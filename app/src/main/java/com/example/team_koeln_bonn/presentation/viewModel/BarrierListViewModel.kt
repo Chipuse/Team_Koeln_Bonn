@@ -26,6 +26,10 @@ class BarrierListViewModel(
         getBarriers()
     }
 
+    fun updateBarriers(){
+        getBarriers()
+    }
+
     //ToDO: refresh is a current bandaid solution until mai brain figures out how to organize those asynchronous callbacks...
     //the issue is, that rn the solution in firestoreapiimpl suggests to have a callback as soon as the data is there. (hence why the propagate the "action" to refresh up until there
     //We need to somehow eliminate one of the asynchronous thingies I think

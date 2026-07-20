@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddLocationAlt
 import androidx.compose.material.icons.filled.Apps
+import androidx.compose.material.icons.filled.CloudDownload
 import androidx.compose.material.icons.filled.EditLocationAlt
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material3.Scaffold
@@ -181,12 +182,10 @@ fun OurApp(
                         )
                         }),
                     BottomBarButton(
-                        icon = Icons.Filled.EditLocationAlt,
-                        contentDescription = "Update Barrier",
+                        icon = Icons.Filled.CloudDownload,
+                        contentDescription = "Fetch Data",
                         onClickBehavior = {
-                            navController.popBackStack(); navController.navigate(AppScreen.Menu.name); navController.navigate(
-                            AppScreen.UpdateBarrierScreenTwo.name
-                        )
+                            barrierListViewModel.updateBarriers()
                         })
 
                 )
