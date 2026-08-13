@@ -23,7 +23,8 @@ class FirestoreApiImpl(
                     barrierList.add(
                         BarrierDto(
                             id = document.get("id") as String,
-                            coordinates = document.get("coordinates") as List<Double>,
+                            lon = document.get("lon") as  Double,
+                            lat = document.get("lat") as Double,
                             tags = document.get("tags") as List<String>,
                             description = document.get("description") as String
                         )
@@ -35,6 +36,40 @@ class FirestoreApiImpl(
 
         return barrierList
     }
+
+    override suspend fun getBarriersInArea(
+        action: (List<BarrierDto>) -> Unit,
+        centerCoordinates: List<Double>
+    ): List<BarrierDto> {
+        if(centerCoordinates == null || centerCoordinates.size < 2){
+            //fallback if coordinates are not applicable: Load All barriers function instead
+            return getBarriers(action)
+        }
+
+        val barrierList = mutableListOf<BarrierDto>()
+
+        dataBase.collection("barriers")
+            //.where() conditions for long and lap
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    barrierList.add(
+                        BarrierDto(
+                            id = document.get("id") as String,
+                            lon = document.get("lon") as  Double,
+                            lat = document.get("lat") as Double,
+                            tags = document.get("tags") as List<String>,
+                            description = document.get("description") as String
+                        )
+                    )
+                }
+
+                action(barrierList)
+            }
+
+        return barrierList
+    }
+
 
     override suspend fun saveBarrier(barrier: BarrierDto): BarrierDto {
         dataBase.collection("barriers")

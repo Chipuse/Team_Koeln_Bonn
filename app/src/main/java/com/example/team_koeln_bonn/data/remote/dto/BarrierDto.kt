@@ -5,25 +5,30 @@ import java.util.UUID
 
 data class BarrierDto(
     val id: String,
-    val coordinates: List<Double>,
+    val lon : Double,
+    val lat : Double,
     val description: String,
     val tags: List<String>
     //image?
 )
 
 fun BarrierDto.toBarrier(): Barrier {
-    return Barrier(
+
+    val barrier =  Barrier(
         id = UUID.fromString(id),
-        coordinates = coordinates as MutableList<Double>,
         description = description,
         tags = tags as MutableList<String>
     )
+    barrier.coordinates.add(lon)
+    barrier.coordinates.add(lat)
+    return barrier
 }
 
 fun Barrier.toBarrierDto(): BarrierDto{
     return BarrierDto(
         id = id.toString(),
-        coordinates = coordinates,
+        lon = coordinates[0],
+        lat = coordinates[1],
         description = description,
         tags = tags
     )
