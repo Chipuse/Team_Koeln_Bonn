@@ -35,12 +35,25 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Adjust
+import androidx.compose.material.icons.filled.CenterFocusStrong
+import androidx.compose.material.icons.filled.CloudDownload
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
+import com.example.team_koeln_bonn.presentation.ui.composables.BottomBarButton
 import com.example.team_koeln_bonn.presentation.ui.theme.AppBlue
+import org.osmdroid.events.MapEventsReceiver
+import org.osmdroid.views.overlay.MapEventsOverlay
 
 
 @Composable
@@ -55,11 +68,12 @@ fun MapScreen(
     navController: NavController,
     barrierListViewModel: BarrierListViewModel,
     barrierUpdateViewModel: BarrierUpdateViewModel
+    //locationViewModel: LocationViewModel
 )
 
  {
     val context = LocalContext.current
-    val barriers = barrierListViewModel.state.value.barriers
+    val barriers = barrierListViewModel.state.value
 
     // Speichert die Barriere, auf die der Nutzer geklickt hat
     var selectedBarrier by remember {
@@ -81,6 +95,7 @@ fun MapScreen(
         LocationRepositoryImpl(context)
     }
 
+     //why do we create viewmodels inside our views???
     val locationViewModel = remember {
         LocationViewModel(locationRepository)
     }
@@ -109,6 +124,11 @@ fun MapScreen(
         )
     }
 
+     //OSM Droid Map Controller
+    val mapView = remember {
+        MapView(context)
+    }
+
     // Enthält die Karte und die Barrieredetails, die über der Karte angezeigt werden
     Box(
         modifier = modifier.fillMaxSize()
@@ -118,18 +138,29 @@ fun MapScreen(
         AndroidView(
             modifier = Modifier.fillMaxSize(),
             factory = { context ->
-                val mapView = MapView(context)
 
-                mapView.setTileSource(CustomTileSource() )//TileSourceFactory.OpenTopo)
+                mapView.setTileSource( TileSourceFactory.OpenTopo)//TileSourceFactory.OpenTopo)CustomTileSource()
                 mapView.setMultiTouchControls(true)
                 mapView.controller.setZoom(15.0)
 
                 val barrierClickEventListener = OnBarrierClick(navController)
 
+                //ToDo Start on user position and not in gummersbach. Also button for recentering and local download
                 val startPoint = GeoPoint(
-                    51.023097,
-                    7.562391
+                    50.960601,
+                    7.0021371
                 )
+                userLocation?.let{ location -> {
+                    updateUserLocationMarker(
+                        mapView = mapView,
+                        latitude = location.latitude,
+                        longitude = location.longitude
+                    )
+                    startPoint.latitude = location.latitude
+                    startPoint.longitude = location.longitude
+                }
+
+                }
 
                 mapView.controller.setCenter(startPoint)
 
@@ -150,6 +181,18 @@ fun MapScreen(
                 //startMarker.title = "Start Position"
                 //startMarker.setOnMarkerClickListener(barrierClickEventListener)
                 //mapView.overlays.add(startMarker)
+                val tapOverlay = MapEventsOverlay(object : MapEventsReceiver {
+                    override fun singleTapConfirmedHelper(p: GeoPoint?): Boolean {
+
+                        return true
+                    }
+
+                    override fun longPressHelper(p: GeoPoint?): Boolean {
+                        // Trigger Menu to add new Barrier at location
+                        return true
+                    }
+                })
+                mapView.overlays.add(tapOverlay)
 
                 mapView
             },
@@ -185,6 +228,44 @@ fun MapScreen(
                 mapView.invalidate()
             }
         )
+
+        //button for recentering on current location
+        Column(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp)
+        ) {
+            SmallFloatingActionButton(
+                onClick = { barrierListViewModel.updateBarriers(
+                    listOf<Double>(mapView.mapCenter.latitude, mapView.mapCenter.longitude),
+                    maxOf(mapView.longitudeSpanDouble, mapView.latitudeSpanDouble)
+
+                                )
+                    mapView.postInvalidate()
+                          },
+
+            ) {
+                Icon(Icons.Filled.CloudDownload, "Download Local Barriers")
+            }
+            Spacer(
+                modifier = Modifier.padding(16.dp)
+            )
+            FloatingActionButton(
+                onClick = {
+                    userLocation?.let { location ->
+                        val userLocation = GeoPoint(
+                            location.latitude,
+                            location.longitude
+                        )
+                        mapView.controller.animateTo(userLocation)
+                    }
+                },
+            ) {
+                Icon(Icons.Filled.Adjust, "Recenter on User Location")
+            }
+
+        }
+
 
         // Zeigt die Informationen der ausgewählten Barriere über der Karte an
         selectedBarrier?.let { barrier ->

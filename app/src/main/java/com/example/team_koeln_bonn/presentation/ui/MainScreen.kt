@@ -10,12 +10,15 @@ import androidx.compose.material.icons.filled.EditLocationAlt
 import androidx.compose.material.icons.filled.Map
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.team_koeln_bonn.data.repository.LocationRepositoryImpl
 import com.example.team_koeln_bonn.presentation.ui.composables.BottomBarButton
 import com.example.team_koeln_bonn.presentation.ui.composables.OurBottomBar
 import com.example.team_koeln_bonn.presentation.ui.composables.OurTopBar
@@ -31,6 +34,7 @@ import com.example.team_koeln_bonn.presentation.ui.screens.report.UpdateBarrierS
 import com.example.team_koeln_bonn.presentation.ui.screens.report.UpdateBarrierScreenFour
 import com.example.team_koeln_bonn.presentation.viewModel.BarrierListViewModel
 import com.example.team_koeln_bonn.presentation.viewModel.BarrierReportViewModel
+import com.example.team_koeln_bonn.presentation.viewModel.LocationViewModel
 
 //entrypoint for our appscreens
 @Composable
@@ -38,10 +42,11 @@ fun OurApp(
     //viewmodel,
     navController : NavHostController = rememberNavController()
 ){
+    val context = LocalContext.current
+
     val barrierListViewModel: BarrierListViewModel = viewModel()
     val barrierReportViewModel : BarrierReportViewModel = viewModel() //gemeinsames Viewmodel für ReportBarrierDescription und dings ReportBarrierScreen unterschiedliche Funktionen jeder hat eigene ViewModel
     val barrierUpdateViewModel : BarrierUpdateViewModel = viewModel() //gemeinsames ViewModel UpdateBarrierScreenTwo und UpdateBarrierThree
-
 
 
     Scaffold(
@@ -86,6 +91,7 @@ fun OurApp(
                         navController = navController,
                         barrierListViewModel = barrierListViewModel,
                         barrierUpdateViewModel = barrierUpdateViewModel
+                        //ToDo : get this to work... We want to seperate mapscreen from creating the viewmodel and the repository (Misaligned with mvvm) locationViewModel = locationViewModel
                     )
                 }
 
@@ -180,14 +186,7 @@ fun OurApp(
                             navController.popBackStack(); navController.navigate(AppScreen.Menu.name); navController.navigate(
                             AppScreen.Report.name
                         )
-                        }),
-                    BottomBarButton(
-                        icon = Icons.Filled.CloudDownload,
-                        contentDescription = "Fetch Data",
-                        onClickBehavior = {
-                            barrierListViewModel.updateBarriers()
                         })
-
                 )
             )
         }

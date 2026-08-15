@@ -1,5 +1,10 @@
 package com.example.team_koeln_bonn.presentation.ui.screens.map
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Adjust
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import com.example.team_koeln_bonn.R
 import com.example.team_koeln_bonn.domain.model.Barrier
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
@@ -17,6 +22,25 @@ fun addBarrierMarker(
     }
 
     val barrierMarker = Marker(mapView)
+
+
+
+
+
+    when(barrier.tags.size){
+        0 -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.marker_placeholder_other)
+        1 -> {
+            when (barrier.tags[0]){
+                "WALKING" -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.marker_placeholder_walk)
+                "SEEING" -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.marker_placeholder_sight)
+                "HEARING" -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.marker_placeholder_hear)
+
+
+                else -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.marker_placeholder_other)
+            }
+        }
+        else -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.marker_placeholder_mixed)
+    }
 
     barrierMarker.position = GeoPoint(
         barrier.coordinates[0],
