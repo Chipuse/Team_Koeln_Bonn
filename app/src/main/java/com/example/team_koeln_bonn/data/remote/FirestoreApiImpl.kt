@@ -33,13 +33,17 @@ class FirestoreApiImpl(
 
                 action(barrierList)
             }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+            }
 
         return barrierList
     }
 
     override suspend fun getBarriersInArea(
         action: (List<BarrierDto>) -> Unit,
-        centerCoordinates: List<Double>
+        centerCoordinates: List<Double>,
+        areaRadius : Double
     ): List<BarrierDto> {
         if(centerCoordinates == null || centerCoordinates.size < 2){
             //fallback if coordinates are not applicable: Load All barriers function instead
@@ -47,9 +51,12 @@ class FirestoreApiImpl(
         }
 
         val barrierList = mutableListOf<BarrierDto>()
-
+        //Compund query based on longitude and latitude of the entries: Needed setup of index on firestore: https://console.firebase.google.com/u/1/project/team-koeln-bonn/firestore/databases/-default-/indexes?create_composite=ClBwcm9qZWN0cy90ZWFtLWtvZWxuLWJvbm4vZGF0YWJhc2VzLyhkZWZhdWx0KS9jb2xsZWN0aW9uR3JvdXBzL2JhcnJpZXJzL2luZGV4ZXMvXxABGgcKA2xhdBABGgcKA2xvbhABGgwKCF9fbmFtZV9fEAE
         dataBase.collection("barriers")
-            //.where() conditions for long and lap
+            .whereLessThan("lon", centerCoordinates[0] + areaRadius)
+            .whereGreaterThan("lon", centerCoordinates[0] - areaRadius)
+            .whereLessThan("lat", centerCoordinates[1] + areaRadius)
+            .whereGreaterThan("lat", centerCoordinates[1] - areaRadius)
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
@@ -65,6 +72,9 @@ class FirestoreApiImpl(
                 }
 
                 action(barrierList)
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
             }
 
         return barrierList

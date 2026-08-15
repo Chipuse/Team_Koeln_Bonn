@@ -15,6 +15,14 @@ class BarrierRepositoryImpl(
         return api.getBarriers(action = action)
     }
 
+    override suspend fun getBarriersInArea(
+        action: (List<BarrierDto>) -> Unit,
+        centerCoordinates: List<Double>,
+        areaRadius: Double
+    ): List<BarrierDto> {
+        return api.getBarriersInArea(action = action, centerCoordinates, areaRadius)
+    }
+
     override suspend fun saveBarrier(barrier: BarrierDto): BarrierDto {
         return api.saveBarrier(barrier)
     }

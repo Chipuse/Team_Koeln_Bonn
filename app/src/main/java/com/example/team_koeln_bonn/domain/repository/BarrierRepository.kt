@@ -8,6 +8,12 @@ interface BarrierRepository {
         action: (List<BarrierDto>) -> Unit
     ): List<BarrierDto>
 
+    suspend fun getBarriersInArea(
+        action: (List<BarrierDto>) -> Unit,
+        centerCoordinates : List<Double>,
+        areaRadius : Double = 0.05
+    ): List<BarrierDto>
+
     //ToDo suspend fun "fetch image of barrier"(barrierId: String)...
 
     suspend fun saveBarrier(barrier: BarrierDto): BarrierDto //speichert eine neue Barriere

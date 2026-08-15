@@ -7,7 +7,7 @@ interface BarrierDatabaseApi {
 
     suspend fun getBarriers(action: (List<BarrierDto>) -> Unit ) : List<BarrierDto>
 
-    suspend fun getBarriersInArea( action: (List<BarrierDto>) -> Unit, centerCoordinates : List<Double>) : List<BarrierDto>
+    suspend fun getBarriersInArea( action: (List<BarrierDto>) -> Unit, centerCoordinates : List<Double>, areaRadius : Double) : List<BarrierDto>
 
     suspend fun saveBarrier(barrier : BarrierDto) : BarrierDto
     suspend fun getBarrierById(id : String) : BarrierDto
