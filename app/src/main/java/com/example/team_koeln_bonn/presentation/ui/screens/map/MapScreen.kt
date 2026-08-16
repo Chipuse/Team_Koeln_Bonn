@@ -139,7 +139,7 @@ fun MapScreen(
             modifier = Modifier.fillMaxSize(),
             factory = { context ->
 
-                mapView.setTileSource( TileSourceFactory.OpenTopo)//TileSourceFactory.OpenTopo)CustomTileSource()
+                mapView.setTileSource( CustomTileSource())//TileSourceFactory.OpenTopo
                 mapView.setMultiTouchControls(true)
                 mapView.controller.setZoom(15.0)
 
@@ -147,8 +147,7 @@ fun MapScreen(
 
                 //ToDo Start on user position and not in gummersbach. Also button for recentering and local download
                 val startPoint = GeoPoint(
-                    50.960601,
-                    7.0021371
+                    50.941479, 6.959103
                 )
                 userLocation?.let{ location -> {
                     updateUserLocationMarker(
@@ -189,6 +188,29 @@ fun MapScreen(
 
                     override fun longPressHelper(p: GeoPoint?): Boolean {
                         // Trigger Menu to add new Barrier at location
+                        if(p == null)
+                            return true
+
+                        val newBarrier = Barrier(
+                            coordinates = mutableListOf<Double>(
+                                p.latitude, p.longitude
+                            ),
+                            description = "Eine neue Barriere wurde an diesem Standort hinzugefügt. Bitte Updaten Sie die Informationen oder nutzen Sie 'Barriere Löschen' um den Vorgang abzubrechen."
+
+                        )
+
+                        addBarrierMarker(
+                            mapView = mapView,
+                            barrier = newBarrier,
+                            onBarrierClick = { clickedBarrier ->
+                                selectedBarrier = clickedBarrier
+                                showBarrierDetails = true
+                            }
+                        )
+                        barrierListViewModel.addBarrier(newBarrier)
+                        selectedBarrier = newBarrier
+                        showBarrierDetails = true
+
                         return true
                     }
                 })
@@ -257,6 +279,7 @@ fun MapScreen(
                             location.latitude,
                             location.longitude
                         )
+                        mapView.controller.zoomTo(17.0)
                         mapView.controller.animateTo(userLocation)
                     }
                 },

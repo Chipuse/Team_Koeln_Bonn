@@ -27,12 +27,8 @@ fun OurTopBar(modifier : Modifier = Modifier){
             horizontalArrangement = Arrangement.Absolute.Left,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            IconButton(
-                onClick = {}) {
-                Icon(Icons.Filled.Menu, contentDescription = "Icon 1")
-            }
             Text(
-                "Title",
+                "Barrier Spotlighter - by TeamKölnBonn",
                 style = MaterialTheme.typography.titleMedium
             )
         }

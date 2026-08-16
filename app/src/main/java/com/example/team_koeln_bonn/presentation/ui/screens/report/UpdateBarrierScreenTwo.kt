@@ -52,7 +52,7 @@ fun UpdateBarrierScreenTwo(
             )
         }
 
-        Spacer(modifier = Modifier.height(90.dp)) // GEÄNDERT: Weniger Abstand, damit Navigation unten sichtbar bleibt
+        Spacer(modifier = Modifier.height(1.dp)) // GEÄNDERT: Weniger Abstand, damit Navigation unten sichtbar bleibt
 
         // Meldung Card
         Card(

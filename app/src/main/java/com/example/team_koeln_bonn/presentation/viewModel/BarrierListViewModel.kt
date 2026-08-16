@@ -1,6 +1,7 @@
 package com.example.team_koeln_bonn.presentation.viewModel
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresExtension
 import com.example.team_koeln_bonn.domain.model.Barrier
 import androidx.compose.runtime.State
@@ -15,6 +16,7 @@ import com.example.team_koeln_bonn.data.repository.BarrierRepositoryImpl
 import com.example.team_koeln_bonn.domain.repository.BarrierRepository
 import com.example.team_koeln_bonn.domain.use_case.get_barriers.GetBarriersInAreaUseCase
 import com.example.team_koeln_bonn.domain.use_case.get_barriers.GetBarriersUseCase
+import com.example.team_koeln_bonn.domain.use_case.get_barriers.SaveBarrierUseCase
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -23,6 +25,7 @@ import kotlin.math.abs
 
 class BarrierListViewModel(
     private val getBarriersUseCase: GetBarriersUseCase = GetBarriersUseCase(),
+    private val saveBarrierUseCase: SaveBarrierUseCase = SaveBarrierUseCase(),
     private val getBarriersInAreaUseCase: GetBarriersInAreaUseCase = GetBarriersInAreaUseCase()
 ) : ViewModel() {
 
@@ -57,6 +60,24 @@ class BarrierListViewModel(
         _downloadState.value = _downloadState.value.copy(
             barriers = _downloadState.value.barriers + barrier
         )
+
+        var currentBarriers = _state.value.toMutableList()
+        currentBarriers.add(barrier)
+        _state.value = currentBarriers.toList()
+
+        saveBarrierUseCase(barrier).onEach { result ->
+            when (result) {
+                is Resource.Success -> {
+                    Log.d("SAVE_BARRIER", "Barriere erfolgreich gespeichert!")
+                }
+                is Resource.Error -> {
+                    Log.d("ERROR", "Fehler bei Barriere abspeichern")
+                }
+                is Resource.Loading -> {
+                    Log.d("SAVE_BARRIER", "Speichere Barriere...")
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 
     //entfernt eine gelöschte barriere aus der lokalen liste damit marker von karte weg geht direkt
