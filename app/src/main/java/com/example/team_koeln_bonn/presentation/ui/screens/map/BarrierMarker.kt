@@ -27,7 +27,7 @@ fun addBarrierMarker(
 
 
 
-    when(barrier.tags.size){
+    /*n(barrier.tags.size){
         0 -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.marker_placeholder_other)
         1 -> {
             when (barrier.tags[0]){
@@ -40,7 +40,7 @@ fun addBarrierMarker(
             }
         }
         else -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.marker_placeholder_mixed)
-    }
+    } */
 
     barrierMarker.position = GeoPoint(
         barrier.coordinates[0],
