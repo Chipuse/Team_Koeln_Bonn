@@ -74,7 +74,8 @@ fun MapScreen(
     //locationViewModel: LocationViewModel
 ) {
     val context = LocalContext.current
-    val barriers = barrierListViewModel.state.value
+
+    val allBarriers = barrierListViewModel.state.value
 
     // Speichert die Barriere, auf die der Nutzer geklickt hat
     var selectedBarrier by remember {
@@ -90,6 +91,18 @@ fun MapScreen(
         mutableStateOf(setOf<String>())
     }
 
+    var appliedFilters by remember {
+        mutableStateOf(setOf<String>())
+    }
+
+    //Barrieren anhand der angewendeten Filter filtern
+    val filteredBarriers =
+        allBarriers.filter { barrier ->
+        appliedFilters.isEmpty() ||
+                barrier.tags.any { tag ->
+                    tag in appliedFilters
+                }
+    }
 
     // Steuert, ob die Barrieredetails auf der Karte angezeigt werden
     var showBarrierDetails by remember {
@@ -176,7 +189,7 @@ fun MapScreen(
                 mapView.controller.setCenter(startPoint)
 
                 // Erstellt für jede gespeicherte Barriere einen Marker
-                barriers.forEach { barrier ->
+                filteredBarriers.forEach { barrier ->
                     addBarrierMarker(
                         mapView = mapView,
                         barrier = barrier,
@@ -240,7 +253,7 @@ fun MapScreen(
                 removeBarrierMarkers(mapView)
 
                 // Erstellt die Barrieremarker mit den aktuellen Daten neu
-                barriers.forEach { barrier ->
+                filteredBarriers.forEach { barrier ->
                     addBarrierMarker(
                         mapView = mapView,
                         barrier = barrier,
@@ -473,13 +486,13 @@ fun MapScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Checkbox(
-                                checked = "Sehbeeinträchtigte" in selectedFilters,
+                                checked = "SEEING" in selectedFilters,
                                 onCheckedChange = { checked ->
                                     selectedFilters =
                                         if (checked) {
-                                            selectedFilters + "Sehbeeinträchtigte"
+                                            selectedFilters + "SEEING"
                                         } else {
-                                            selectedFilters - "Sehbeeinträchtigte"
+                                            selectedFilters - "SEEING"
                                         }
                                 }
                             )
@@ -491,13 +504,13 @@ fun MapScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Checkbox(
-                                checked = "Gehbeeinträchtigte" in selectedFilters,
+                                checked = "WALKING" in selectedFilters,
                                 onCheckedChange = { checked ->
                                     selectedFilters =
                                         if (checked) {
-                                            selectedFilters + "Gehbeeinträchtigte"
+                                            selectedFilters + "WALKING"
                                         } else {
-                                            selectedFilters - "Gehbeeinträchtigte"
+                                            selectedFilters - "WALKING"
                                         }
                                 }
                             )
@@ -509,13 +522,13 @@ fun MapScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Checkbox(
-                                checked = "Hörbeeinträchtigte" in selectedFilters,
+                                checked = "HEARING" in selectedFilters,
                                 onCheckedChange = { checked ->
                                     selectedFilters =
                                         if (checked) {
-                                            selectedFilters + "Hörbeeinträchtigte"
+                                            selectedFilters + "HEARING"
                                         } else {
-                                            selectedFilters - "Hörbeeinträchtigte"
+                                            selectedFilters - "HEARING"
 
                                         }
                                 }
@@ -528,13 +541,13 @@ fun MapScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Checkbox(
-                                checked = "Sonstiges" in selectedFilters,
+                                checked = "OTHER" in selectedFilters,
                                 onCheckedChange = { checked ->
                                     selectedFilters =
                                         if (checked) {
-                                            selectedFilters + "Sonstiges"
+                                            selectedFilters + "OTHER"
                                         } else {
-                                            selectedFilters - "Sonstiges"
+                                            selectedFilters - "OTHER"
                                         }
                                 }
                             )
@@ -547,6 +560,7 @@ fun MapScreen(
                 confirmButton = {
                     TextButton(
                         onClick = {
+                            appliedFilters = selectedFilters
                             showFilterDialog = false
                         }
                     ) {
