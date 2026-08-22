@@ -54,6 +54,9 @@ import com.example.team_koeln_bonn.presentation.ui.composables.BottomBarButton
 import com.example.team_koeln_bonn.presentation.ui.theme.AppBlue
 import org.osmdroid.events.MapEventsReceiver
 import org.osmdroid.views.overlay.MapEventsOverlay
+import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material3.Checkbox
+import android.R.attr.checked
 
 
 @Composable
@@ -69,9 +72,7 @@ fun MapScreen(
     barrierListViewModel: BarrierListViewModel,
     barrierUpdateViewModel: BarrierUpdateViewModel
     //locationViewModel: LocationViewModel
-)
-
- {
+) {
     val context = LocalContext.current
     val barriers = barrierListViewModel.state.value
 
@@ -79,6 +80,16 @@ fun MapScreen(
     var selectedBarrier by remember {
         mutableStateOf<Barrier?>(null)
     }
+
+    //Filter
+    var showFilterDialog by remember {
+        mutableStateOf(false)
+    }
+
+    var selectedFilters by remember {
+        mutableStateOf(setOf<String>())
+    }
+
 
     // Steuert, ob die Barrieredetails auf der Karte angezeigt werden
     var showBarrierDetails by remember {
@@ -95,7 +106,7 @@ fun MapScreen(
         LocationRepositoryImpl(context)
     }
 
-     //why do we create viewmodels inside our views???
+    //why do we create viewmodels inside our views???
     val locationViewModel = remember {
         LocationViewModel(locationRepository)
     }
@@ -124,7 +135,7 @@ fun MapScreen(
         )
     }
 
-     //OSM Droid Map Controller
+    //OSM Droid Map Controller
     val mapView = remember {
         MapView(context)
     }
@@ -139,25 +150,26 @@ fun MapScreen(
             modifier = Modifier.fillMaxSize(),
             factory = { context ->
 
-                mapView.setTileSource( CustomTileSource())//TileSourceFactory.OpenTopo
+                mapView.setTileSource(CustomTileSource())//TileSourceFactory.OpenTopo
                 mapView.setMultiTouchControls(true)
                 mapView.controller.setZoom(15.0)
 
-                val barrierClickEventListener = OnBarrierClick(navController)
+                //val barrierClickEventListener = OnBarrierClick(navController)
 
                 //ToDo Start on user position and not in gummersbach. Also button for recentering and local download
                 val startPoint = GeoPoint(
                     50.941479, 6.959103
                 )
-                userLocation?.let{ location -> {
-                    updateUserLocationMarker(
-                        mapView = mapView,
-                        latitude = location.latitude,
-                        longitude = location.longitude
-                    )
-                    startPoint.latitude = location.latitude
-                    startPoint.longitude = location.longitude
-                }
+                userLocation?.let { location ->
+                    {
+                        updateUserLocationMarker(
+                            mapView = mapView,
+                            latitude = location.latitude,
+                            longitude = location.longitude
+                        )
+                        startPoint.latitude = location.latitude
+                        startPoint.longitude = location.longitude
+                    }
 
                 }
 
@@ -188,7 +200,7 @@ fun MapScreen(
 
                     override fun longPressHelper(p: GeoPoint?): Boolean {
                         // Trigger Menu to add new Barrier at location
-                        if(p == null)
+                        if (p == null)
                             return true
 
                         val newBarrier = Barrier(
@@ -251,22 +263,24 @@ fun MapScreen(
             }
         )
 
-        //button for recentering on current location
+        //floating buttons
         Column(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(16.dp)
         ) {
+            //button for recentering on current location
             SmallFloatingActionButton(
-                onClick = { barrierListViewModel.updateBarriers(
-                    listOf<Double>(mapView.mapCenter.latitude, mapView.mapCenter.longitude),
-                    maxOf(mapView.longitudeSpanDouble, mapView.latitudeSpanDouble)
+                onClick = {
+                    barrierListViewModel.updateBarriers(
+                        listOf<Double>(mapView.mapCenter.latitude, mapView.mapCenter.longitude),
+                        maxOf(mapView.longitudeSpanDouble, mapView.latitudeSpanDouble)
 
-                                )
+                    )
                     mapView.postInvalidate()
-                          },
+                },
 
-            ) {
+                ) {
                 Icon(Icons.Filled.CloudDownload, "Download Local Barriers")
             }
             Spacer(
@@ -285,6 +299,22 @@ fun MapScreen(
                 },
             ) {
                 Icon(Icons.Filled.Adjust, "Recenter on User Location")
+            }
+
+            Spacer(
+                modifier = Modifier.padding(8.dp)
+            )
+
+            //Filter
+            FloatingActionButton(
+                onClick = {
+                    showFilterDialog = true
+                }
+            ) {
+                Icon(
+                    Icons.Filled.Tune,
+                    contentDescription = "Filter"
+                )
             }
 
         }
@@ -422,22 +452,127 @@ fun MapScreen(
                 }
             )
         }
-    }
-}
 
-class OnBarrierClick(
-    val navController: NavController
-) : Marker.OnMarkerClickListener {
+        //Filter Popup
+        if (showFilterDialog) {
+            AlertDialog(
+                onDismissRequest = {
+                    showFilterDialog = false
+                },
 
-    override fun onMarkerClick(
-        p0: Marker?,
-        p1: MapView?
-    ): Boolean {
-        navController.navigate(
-            //ToDO set updateviewmodel init update barrier
-            AppScreen.UpdateBarrierScreenTwo.name
-        )
+                title = {
+                    Text("Filter")
+                },
 
-        return true
+                text = {
+                    Column {
+
+                        Text("Nach welchen Barrieren filtern?")
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Checkbox(
+                                checked = "Sehbeeinträchtigte" in selectedFilters,
+                                onCheckedChange = { checked ->
+                                    selectedFilters =
+                                        if (checked) {
+                                            selectedFilters + "Sehbeeinträchtigte"
+                                        } else {
+                                            selectedFilters - "Sehbeeinträchtigte"
+                                        }
+                                }
+                            )
+
+                            Text("Sehbeeinträchtigte")
+                        }
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Checkbox(
+                                checked = "Gehbeeinträchtigte" in selectedFilters,
+                                onCheckedChange = { checked ->
+                                    selectedFilters =
+                                        if (checked) {
+                                            selectedFilters + "Gehbeeinträchtigte"
+                                        } else {
+                                            selectedFilters - "Gehbeeinträchtigte"
+                                        }
+                                }
+                            )
+
+                            Text("Gehbeeinträchtigte")
+                        }
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Checkbox(
+                                checked = "Hörbeeinträchtigte" in selectedFilters,
+                                onCheckedChange = { checked ->
+                                    selectedFilters =
+                                        if (checked) {
+                                            selectedFilters + "Hörbeeinträchtigte"
+                                        } else {
+                                            selectedFilters - "Hörbeeinträchtigte"
+
+                                        }
+                                }
+                            )
+
+                            Text("Hörbeeinträchtigte")
+                        }
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Checkbox(
+                                checked = "Sonstiges" in selectedFilters,
+                                onCheckedChange = { checked ->
+                                    selectedFilters =
+                                        if (checked) {
+                                            selectedFilters + "Sonstiges"
+                                        } else {
+                                            selectedFilters - "Sonstiges"
+                                        }
+                                }
+                            )
+
+                            Text("Sonstiges")
+                        }
+                    }
+                },
+
+                confirmButton = {
+                    TextButton(
+                        onClick = {
+                            showFilterDialog = false
+                        }
+                    ) {
+                        Text("Filtern")
+                    }
+                }
+            )
+        }
+
+
+
+        class OnBarrierClick(
+            val navController: NavController
+        ) : Marker.OnMarkerClickListener {
+
+            override fun onMarkerClick(
+                p0: Marker?,
+                p1: MapView?
+            ): Boolean {
+                navController.navigate(
+                    //ToDO set updateviewmodel init update barrier
+                    AppScreen.UpdateBarrierScreenTwo.name
+                )
+
+                return true
+            }
+        }
     }
 }
