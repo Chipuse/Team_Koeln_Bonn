@@ -71,7 +71,7 @@ fun OurApp(
             {
                 composable(route = AppScreen.Menu.name){
                     MenuScreen(
-                        //modifier = Modifier.fillMaxSize()
+                        navController = navController
                     )
                 }
 

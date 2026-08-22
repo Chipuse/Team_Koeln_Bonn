@@ -1,13 +1,12 @@
 package com.example.team_koeln_bonn.presentation.ui.screens.menu
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Chat
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Report
-import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,9 +18,14 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.team_koeln_bonn.presentation.ui.theme.*
+import androidx.navigation.NavController
+import com.example.team_koeln_bonn.presentation.ui.screens.AppScreen
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun MenuScreen() {
+fun MenuScreen(
+    navController: NavController
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -39,7 +43,10 @@ fun MenuScreen() {
             MenuButton(
                 text = "Karten",
                 icon = Icons.Outlined.LocationOn,
-                color = AppBlue
+                color = AppBlue,
+                onClick = {
+                    navController.navigate(AppScreen.Map.name)
+                }
             )
 
             /*
@@ -72,7 +79,10 @@ fun MenuScreen() {
             MenuButton(
                 text = "Melden",
                 icon = Icons.Outlined.Report,
-                color = AppPurple
+                color = AppPurple,
+                onClick = {
+                    navController.navigate(AppScreen.Report.name)
+                }
             )
         }
     }
@@ -82,11 +92,15 @@ fun MenuScreen() {
 fun MenuButton(
     text: String,
     icon: ImageVector,
-    color: Color
+    color: Color,
+    onClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
             .size(125.dp)
+            .clickable{
+                onClick()
+            }
             .background(
                 color = color,
                 shape = RoundedCornerShape(16.dp)
@@ -115,6 +129,8 @@ fun MenuButton(
 @Composable
 fun MenuScreenPreview() {
     Team_Koeln_BonnTheme {
-        MenuScreen()
+        MenuScreen(
+            navController = rememberNavController()
+        )
     }
 }
