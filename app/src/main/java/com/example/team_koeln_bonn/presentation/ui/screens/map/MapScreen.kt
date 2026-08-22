@@ -169,7 +169,7 @@ fun MapScreen(
 
                 //val barrierClickEventListener = OnBarrierClick(navController)
 
-                //ToDo Start on user position and not in gummersbach. Also button for recentering and local download
+                //ToDo Start on user position and not at cologne cathedral.
                 val startPoint = GeoPoint(
                     50.941479, 6.959103
                 )
@@ -212,6 +212,8 @@ fun MapScreen(
                     }
 
                     override fun longPressHelper(p: GeoPoint?): Boolean {
+                        //ToDO currently a new barrier will be created immediately and if the user doesnt update or delete it, it will stay in the database which is not optimal.
+                        //-> (but the implementation was fast, since I reused the barrier dialogue from eylem)
                         // Trigger Menu to add new Barrier at location
                         if (p == null)
                             return true
