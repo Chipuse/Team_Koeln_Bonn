@@ -29,6 +29,8 @@ import com.example.team_koeln_bonn.presentation.ui.theme.MeldungHintergrund
 import com.example.team_koeln_bonn.presentation.ui.theme.Team_Koeln_BonnTheme
 import com.example.team_koeln_bonn.presentation.viewModel.BarrierListViewModel
 import com.example.team_koeln_bonn.presentation.viewModel.BarrierUpdateViewModel
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 
 @Composable
 fun UpdateBarrierScreenThree(
@@ -44,6 +46,7 @@ fun UpdateBarrierScreenThree(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 32.dp, vertical = 56.dp)
     ) {

@@ -32,6 +32,9 @@ import com.example.team_koeln_bonn.data.repository.LocationRepositoryImpl
 import com.example.team_koeln_bonn.presentation.viewModel.LocationViewModel
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 
 @Composable
 fun ReportBarrierDescriptionScreen(
@@ -61,6 +64,7 @@ fun ReportBarrierDescriptionScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 32.dp, vertical = 56.dp)
     ) {

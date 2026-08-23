@@ -24,6 +24,9 @@ import com.example.team_koeln_bonn.presentation.ui.screens.AppScreen
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.team_koeln_bonn.presentation.viewModel.BarrierReportViewModel // GEÄNDERT:
 import com.example.team_koeln_bonn.domain.model.UpdateAffectedGroup
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 
 @Composable
 fun ReportBarrierScreen(
@@ -35,6 +38,7 @@ fun ReportBarrierScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 32.dp, vertical = 56.dp)
     ) {
