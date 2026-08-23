@@ -22,6 +22,7 @@ import androidx.navigation.NavController
 import com.example.team_koeln_bonn.presentation.ui.screens.AppScreen
 import androidx.navigation.compose.rememberNavController
 
+
 @Composable
 fun MenuScreen(
     navController: NavController
@@ -30,15 +31,18 @@ fun MenuScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(horizontal = 28.dp, vertical = 32.dp)
+            .padding(horizontal = 28.dp, vertical = 32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
 
-        Spacer(modifier = Modifier.height(40.dp))
+       Spacer(modifier = Modifier.height(40.dp))
 
 
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Center,
+            //verticalAlignment = Alignment.CenterVertically
         ) {
             MenuButton(
                 text = "Karten",
@@ -49,32 +53,7 @@ fun MenuScreen(
                 }
             )
 
-            /*
-            MenuButton(
-                text = "SOS",
-                icon = Icons.Outlined.Warning,
-                color = AppLightRed
-            )
-
-             */
-        }
-
-        Spacer(modifier = Modifier.height(30.dp))
-
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-        ) {
-
-            /*
-            MenuButton(
-                text = "Chat",
-                icon = Icons.Outlined.Chat,
-                color = AppOrange
-            )
-
-             */
+        Spacer(modifier = Modifier.width(20.dp))
 
             MenuButton(
                 text = "Melden",
