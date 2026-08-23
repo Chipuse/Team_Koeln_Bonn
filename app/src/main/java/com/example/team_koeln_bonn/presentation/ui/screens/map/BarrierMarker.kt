@@ -31,9 +31,9 @@ fun addBarrierMarker(
         0 -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.marker_placeholder_other)
         1 -> {
             when (barrier.tags[0]){
-                "WALKING" -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.marker_placeholder_walk)
-                "SEEING" -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.marker_placeholder_sight)
-                "HEARING" -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.marker_placeholder_hear)
+                "WALKING" -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.map_marker_walk)
+                "SEEING" -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.map_marker_sight)
+                "HEARING" -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.map_marker_hear)
 
 
                 else -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.marker_placeholder_other)
@@ -41,6 +41,7 @@ fun addBarrierMarker(
         }
         else -> barrierMarker.icon = ContextCompat.getDrawable( mapView.context,R.drawable.marker_placeholder_mixed)
     }
+    barrierMarker.bounds
 
     barrierMarker.position = GeoPoint(
         barrier.coordinates[0],

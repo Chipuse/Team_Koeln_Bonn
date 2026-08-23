@@ -206,12 +206,12 @@ fun MapScreen(
                 //startMarker.setOnMarkerClickListener(barrierClickEventListener)
                 //mapView.overlays.add(startMarker)
                 val tapOverlay = MapEventsOverlay(object : MapEventsReceiver {
-                    override fun singleTapConfirmedHelper(p: GeoPoint?): Boolean {
+                    override fun longPressHelper(p: GeoPoint?): Boolean {
 
                         return true
                     }
 
-                    override fun longPressHelper(p: GeoPoint?): Boolean {
+                    override fun singleTapConfirmedHelper(p: GeoPoint?): Boolean {
                         //ToDO currently a new barrier will be created immediately and if the user doesnt update or delete it, it will stay in the database which is not optimal.
                         //-> (but the implementation was fast, since I reused the barrier dialogue from eylem)
                         // Trigger Menu to add new Barrier at location
