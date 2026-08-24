@@ -20,6 +20,8 @@ import androidx.navigation.NavController
 import androidx.compose.foundation.clickable
 import androidx.navigation.compose.rememberNavController
 import com.example.team_koeln_bonn.presentation.ui.screens.AppScreen
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 
 @Composable
 fun ReportBarrierSuccessScreen(
@@ -29,6 +31,7 @@ fun ReportBarrierSuccessScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 32.dp, vertical = 56.dp)
     ) {
