@@ -7,6 +7,8 @@
     <!-- neu für GPS Tracking -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- für Notification -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -43,5 +45,7 @@
         <meta-data android:name="org.osmdroid.config"
             android:value="true"></meta-data>
     </application>
+
+
 
 </manifest>

@@ -1,15 +1,13 @@
 package com.example.team_koeln_bonn.notification
 
+import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import android.util.Log
 
-class PushNotificationService: FirebaseMessagingService() {
+class PushNotificationService : FirebaseMessagingService() {
 
-    //authenticate to fight against attacks
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-
         Log.d("FCM_TOKEN", token)
     }
 
@@ -18,8 +16,15 @@ class PushNotificationService: FirebaseMessagingService() {
 
         Log.d("FCM_MESSAGE", "Nachricht erhalten!")
 
-        Log.d("FCM", message.data.toString())
+        val title = message.notification?.title
+            ?: message.data["title"]
+            ?: "Neue Barriere"
 
+        val body = message.notification?.body
+            ?: message.data["body"]
+            ?: "Eine neue Barriere wurde gemeldet."
+
+        BarrierNotificationManager(this)
+            .showNotification(title, body)
     }
-
 }
