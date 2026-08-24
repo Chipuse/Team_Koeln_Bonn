@@ -1,0 +1,28 @@
+<!--
+  ~ Copyright (C) 2026 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:viewportHeight="300" android:viewportWidth="223" android:width="17.84dp">
+      
+    <path android:fillColor="#00000000" android:fillType="nonZero" android:pathData="m111.68,279.97c53.48,-74.34 79.6,-138.21 80,-180 0.4,-41.79 -38.03,-81.09 -80,-80 -41.97,1.09 -77.32,28.81 -80,80 -6.43,48.07 76.05,183.97 80,180z" android:strokeColor="#000000" android:strokeLineCap="square" android:strokeLineJoin="bevel" android:strokeWidth="6.3772"/>
+      
+    <path android:fillColor="#000000" android:fillType="evenOdd" android:pathData="M45.01,80.68h132.98v17.04h-132.98z" android:strokeColor="#000000" android:strokeLineCap="square" android:strokeLineJoin="bevel" android:strokeWidth="1.43623"/>
+      
+    <path android:fillColor="#000000" android:fillType="evenOdd" android:pathData="M45.01,108.04h132.98v17.04h-132.98z" android:strokeColor="#000000" android:strokeLineCap="square" android:strokeLineJoin="bevel" android:strokeWidth="1.43623"/>
+      
+    <path android:fillColor="#000000" android:fillType="evenOdd" android:pathData="M76.97,69.79h15.88v89.18h-15.88z" android:strokeColor="#000000" android:strokeLineCap="square" android:strokeLineJoin="bevel" android:strokeWidth="1.43623"/>
+      
+    <path android:fillColor="#000000" android:fillType="evenOdd" android:pathData="M130.17,69.52h15.88v89.18h-15.88z" android:strokeColor="#000000" android:strokeLineCap="square" android:strokeLineJoin="bevel" android:strokeWidth="1.43623"/>
+    
+</vector>

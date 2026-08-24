@@ -13,20 +13,20 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="50dp" android:viewportHeight="300" android:viewportWidth="223" android:width="37.166668dp">
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="50dp" android:viewportHeight="267" android:viewportWidth="168" android:width="31.460674dp">
       
-    <path android:fillColor="#51d3ff" android:fillType="evenOdd" android:pathData="M120.18,279.5C173.66,205.16 199.78,141.29 200.18,99.5C200.58,57.71 162.15,18.41 120.18,19.5C78.2,20.59 42.85,48.31 40.18,99.5C33.75,147.57 116.22,283.47 120.18,279.5Z" android:strokeColor="#000000" android:strokeLineCap="square" android:strokeLineJoin="bevel" android:strokeWidth="6.38"/>
+    <path android:fillColor="#51d3ff" android:fillType="evenOdd" android:pathData="M84.18,263.47C137.66,189.13 163.78,125.26 164.18,83.47 164.59,41.68 126.16,2.37 84.18,3.47 42.21,4.56 6.86,32.28 4.18,83.47 -2.24,131.54 80.23,267.44 84.18,263.47Z" android:strokeColor="#000000" android:strokeLineCap="square" android:strokeLineJoin="bevel" android:strokeWidth="6.3772"/>
       
-    <path android:fillColor="#00000000" android:pathData="M98.42,88.01C85.7,96.79 79.41,112.73 82.55,128.25C85.68,143.78 97.6,155.75 112.64,158.48C127.68,161.2 142.81,154.13 150.81,140.63" android:strokeColor="#000000" android:strokeLineCap="round" android:strokeLineJoin="miter" android:strokeWidth="8.58"/>
+    <path android:fillColor="#00000000" android:pathData="M114.82,124.6A37.3,38.76 0,0 1,76.65 142.45,37.3 38.76,0 0,1 46.55,112.22 37.3,38.76 0,0 1,62.43 71.98" android:strokeColor="#000000" android:strokeLineCap="round" android:strokeLineJoin="miter" android:strokeWidth="8"/>
       
-    <path android:fillColor="#00000000" android:pathData="M168.38,145.59L148.72,111.11" android:strokeColor="#000000" android:strokeLineCap="round" android:strokeLineJoin="miter" android:strokeWidth="8.58"/>
+    <path android:fillColor="#00000000" android:pathData="M132.38,129.56 L112.73,95.08" android:strokeColor="#000000" android:strokeLineCap="round" android:strokeLineJoin="miter" android:strokeWidth="8.58441"/>
       
-    <path android:fillColor="#00000000" android:pathData="M148.26,110.71L116.47,110.71" android:strokeColor="#000000" android:strokeLineCap="round" android:strokeLineJoin="miter" android:strokeWidth="8.58"/>
+    <path android:fillColor="#00000000" android:pathData="M112.26,94.68H80.47" android:strokeColor="#000000" android:strokeLineCap="round" android:strokeLineJoin="miter" android:strokeWidth="8.58441"/>
       
-    <path android:fillColor="#00000000" android:pathData="M116.47,110.31L108.42,74.69" android:strokeColor="#000000" android:strokeLineCap="round" android:strokeLineJoin="miter" android:strokeWidth="8.58"/>
+    <path android:fillColor="#00000000" android:pathData="M80.47,94.28 L72.43,58.66" android:strokeColor="#000000" android:strokeLineCap="round" android:strokeLineJoin="miter" android:strokeWidth="8.58441"/>
       
-    <path android:fillColor="#00000000" android:pathData="M110.56,79.46L125.04,96.22L145.44,95.95" android:strokeColor="#000000" android:strokeLineCap="round" android:strokeLineJoin="miter" android:strokeWidth="8.58"/>
+    <path android:fillColor="#00000000" android:pathData="M74.57,63.43 L89.05,80.19 109.45,79.92" android:strokeColor="#000000" android:strokeLineCap="round" android:strokeLineJoin="miter" android:strokeWidth="8.58441"/>
       
-    <path android:fillColor="#000000" android:fillType="evenOdd" android:pathData="M100.04,57.99a5.67,5.97 90,1 0,11.93 0a5.67,5.97 90,1 0,-11.93 0z" android:strokeColor="#000000" android:strokeLineCap="round" android:strokeLineJoin="miter" android:strokeWidth="8.58"/>
+    <path android:fillColor="#000000" android:fillType="evenOdd" android:pathData="M64.04,41.96a5.97,5.67 0,1 0,11.93 0a5.97,5.67 0,1 0,-11.93 0z" android:strokeColor="#000000" android:strokeLineCap="round" android:strokeLineJoin="miter" android:strokeWidth="8.58441"/>
     
 </vector>

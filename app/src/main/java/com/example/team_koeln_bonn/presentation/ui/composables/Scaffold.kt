@@ -1,8 +1,13 @@
 package com.example.team_koeln_bonn.presentation.ui.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -13,26 +18,43 @@ import androidx.compose.ui.Modifier
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import com.example.team_koeln_bonn.R
 import kotlin.collections.forEach
 
 @Composable
 fun OurTopBar(modifier : Modifier = Modifier){
-    BottomAppBar(
-        modifier = Modifier,
-        containerColor = MaterialTheme.colorScheme.primary
+    Box(
+        modifier = Modifier
+            .height(70.dp)
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.primary)
     ){
         Row(modifier = Modifier
-            .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Absolute.Left,
-            verticalAlignment = Alignment.CenterVertically
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .padding(5.dp, 15.dp),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.Bottom
         ) {
+            Icon(
+                painter = painterResource(R.drawable.moco_app_icon_not_filled),
+                contentDescription = "Our App Icon",
+                tint = Color.White
+            )
             Text(
-                "Barrier Spotlighter - by TeamKölnBonn",
-                style = MaterialTheme.typography.titleMedium
+                "Barrier Spotter - by TeamKölnBonn",
+                style = MaterialTheme.typography.titleMedium,
+                color = Color.White
             )
         }
     }
+
+
 }
 
 data class BottomBarButton(val icon: ImageVector, val contentDescription : String = "", val onClickBehavior: () -> Unit = {})
