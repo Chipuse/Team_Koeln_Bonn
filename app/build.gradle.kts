@@ -7,7 +7,7 @@ plugins {
 android {
     namespace = "com.example.team_koeln_bonn"
     compileSdk {
-        version = release(36) {
+        version = release(37) {
             minorApiLevel = 1
         }
     }
@@ -59,6 +59,10 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation("androidx.compose.material:material-icons-extended")
+
+    //Clickable link in text
+    implementation(platform("androidx.compose:compose-bom:2026.08.00"))
+    implementation("androidx.compose.material3:material3")
 
     //Neu dazu für Viewmodel
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.7")

@@ -35,6 +35,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Adjust
 import androidx.compose.material.icons.filled.CenterFocusStrong
@@ -47,16 +48,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.SmallFloatingActionButton
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.rememberNavController
-import com.example.team_koeln_bonn.presentation.ui.composables.BottomBarButton
 import com.example.team_koeln_bonn.presentation.ui.theme.AppBlue
 import org.osmdroid.events.MapEventsReceiver
 import org.osmdroid.views.overlay.MapEventsOverlay
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material3.Checkbox
-import android.R.attr.checked
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.LinkAnnotation
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withLink
 
 
 @Composable
@@ -277,6 +281,32 @@ fun MapScreen(
                 mapView.invalidate()
             }
         )
+        Card(
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(1.dp)
+                .size(width = 250.dp, height = 30.dp)
+        ) {
+            Text(
+                buildAnnotatedString {
+                    append("Map data from ")
+                    withLink(
+                        LinkAnnotation.Url(
+                            "https://www.openstreetmap.org/copyright",
+                            TextLinkStyles(style = SpanStyle(color = Color.Blue))
+                        )
+                    ) {
+                        append("OpenStreetMap")
+                    }
+                    append(".")
+                },
+                modifier
+                    .padding(3.dp),
+                textAlign = TextAlign.Center,
+                style = MaterialTheme.typography.titleMedium
+            )
+        }
+
 
         //floating buttons
         Column(
