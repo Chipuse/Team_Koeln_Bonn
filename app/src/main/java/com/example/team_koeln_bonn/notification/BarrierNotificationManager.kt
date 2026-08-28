@@ -34,6 +34,10 @@ class BarrierNotificationManager(
             .setSmallIcon(R.drawable.outline_accessibility_24)
             .setContentTitle(title)
             .setContentText(body)
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText(body)
+            )
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setAutoCancel(true)
             .build()

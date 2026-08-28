@@ -6,6 +6,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import com.google.firebase.messaging.Constants.MessageNotificationKeys.TAG
+import com.example.team_koeln_bonn.notification.BarrierFirestoreListener
 
 class FirestoreApiImpl(
     private val dataBase: FirebaseFirestore = Firebase.firestore
@@ -114,8 +115,11 @@ class FirestoreApiImpl(
         return barrier
     }
 
+
+
     //Löscht eine Barriere anhand ihrer ID aus Firestore
     override suspend fun deleteBarrier(id: String) {
+        BarrierFirestoreListener.markAsLocallyDeleted(id)
         dataBase.collection("barriers")
             .document(id)
             .delete()

@@ -16,6 +16,29 @@ class BarrierFirestoreListener(
     private var listenerRegistration: ListenerRegistration? = null
     private var firstSnapshot = true
 
+    // Maximal eine Notification pro Stunde
+    private var lastNotificationTime = 0L
+
+    private val notificationCooldown =
+        60 * 60 * 1000L // 1 Stunde
+
+    companion object {
+
+        // Merkt sich Barrieren, die auf diesem Gerät gelöscht wurden
+        private val locallyDeletedBarrierIds =
+            mutableSetOf<String>()
+
+        fun markAsLocallyDeleted(barrierId: String) {
+
+            locallyDeletedBarrierIds.add(barrierId)
+
+            Log.d(
+                "BARRIER_LISTENER",
+                "Lokale Löschung vorgemerkt: $barrierId"
+            )
+        }
+    }
+
     fun startListening() {
 
         listenerRegistration = FirebaseFirestore.getInstance()
@@ -44,6 +67,16 @@ class BarrierFirestoreListener(
 
                 snapshots.documentChanges.forEach { change ->
 
+                    // Eigene lokale Änderung auf diesem Gerät
+                    // -> keine Notification anzeigen
+                    if (change.document.metadata.hasPendingWrites()) {
+                        Log.d(
+                            "BARRIER_LISTENER",
+                            "Eigene Änderung erkannt - keine Notification"
+                        )
+                        return@forEach
+                    }
+
                     val rawDescription =
                         change.document.getString("description")
                             ?: "Keine Beschreibung"
@@ -68,12 +101,21 @@ class BarrierFirestoreListener(
                             ?.takeIf { it.isNotBlank() }
                             ?: "Keine Kategorie"
 
+                    // Beschreibung kürzen, damit die Notification kompakter bleibt
+                    val shortDescription =
+                        cleanDescription.take(40)
+
                     val body =
-                        "$cleanDescription\nKategorie: $tagText"
+                        "$shortDescription · $tagText"
 
                     when (change.type) {
 
                         DocumentChange.Type.ADDED -> {
+
+                            if (!canShowNotification()) {
+                                return@forEach
+                            }
+
                             Log.d(
                                 "BARRIER_LISTENER",
                                 "Neue Barriere erkannt: $cleanDescription"
@@ -86,6 +128,11 @@ class BarrierFirestoreListener(
                         }
 
                         DocumentChange.Type.MODIFIED -> {
+
+                            if (!canShowNotification()) {
+                                return@forEach
+                            }
+
                             Log.d(
                                 "BARRIER_LISTENER",
                                 "Barriere aktualisiert: $cleanDescription"
@@ -98,6 +145,30 @@ class BarrierFirestoreListener(
                         }
 
                         DocumentChange.Type.REMOVED -> {
+
+                            val barrierId =
+                                change.document.id
+
+                            // Prüfen, ob diese Barriere
+                            // auf diesem Gerät gelöscht wurde
+                            if (
+                                locallyDeletedBarrierIds.remove(
+                                    barrierId
+                                )
+                            ) {
+
+                                Log.d(
+                                    "BARRIER_LISTENER",
+                                    "Eigene Löschung erkannt - keine Notification"
+                                )
+
+                                return@forEach
+                            }
+
+                            if (!canShowNotification()) {
+                                return@forEach
+                            }
+
                             Log.d(
                                 "BARRIER_LISTENER",
                                 "Barriere gelöscht: $cleanDescription"
@@ -113,7 +184,27 @@ class BarrierFirestoreListener(
             }
     }
 
+    private fun canShowNotification(): Boolean {
+
+        val now = System.currentTimeMillis()
+
+        if (now - lastNotificationTime < notificationCooldown) {
+
+            Log.d(
+                "BARRIER_LISTENER",
+                "Notification übersprungen - Stundenlimit"
+            )
+
+            return false
+        }
+
+        lastNotificationTime = now
+
+        return true
+    }
+
     private fun translateTag(tag: String?): String? {
+
         return when (tag) {
             "WALKING" -> "Gehen"
             "SEEING" -> "Sehen"
@@ -125,7 +216,9 @@ class BarrierFirestoreListener(
     }
 
     fun stopListening() {
+
         listenerRegistration?.remove()
+
         listenerRegistration = null
     }
 }
