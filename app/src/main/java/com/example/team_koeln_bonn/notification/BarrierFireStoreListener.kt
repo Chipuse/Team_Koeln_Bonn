@@ -35,7 +35,8 @@ class BarrierFirestoreListener(
                     return@addSnapshotListener
                 }
 
-                // Beim Start bestehende Barrieren nicht melden
+                // Beim ersten Laden keine Notifications
+                // für bereits vorhandene Barrieren anzeigen
                 if (firstSnapshot) {
                     firstSnapshot = false
                     return@addSnapshotListener
@@ -43,31 +44,84 @@ class BarrierFirestoreListener(
 
                 snapshots.documentChanges.forEach { change ->
 
+                    val rawDescription =
+                        change.document.getString("description")
+                            ?: "Keine Beschreibung"
+
+                    // Alles nach ":" ausblenden
+                    // Beispiel:
+                    // "NY Centrum 3: 40.77 Lon und -73.97 Lat"
+                    // wird zu:
+                    // "NY Centrum 3"
+                    val cleanDescription =
+                        rawDescription.substringBefore(":").trim()
+
+                    val tags =
+                        change.document.get("tags") as? List<*>
+
+                    val tagText =
+                        tags
+                            ?.mapNotNull { tag ->
+                                translateTag(tag?.toString())
+                            }
+                            ?.joinToString(", ")
+                            ?.takeIf { it.isNotBlank() }
+                            ?: "Keine Kategorie"
+
+                    val body =
+                        "$cleanDescription\nKategorie: $tagText"
+
                     when (change.type) {
 
                         DocumentChange.Type.ADDED -> {
+                            Log.d(
+                                "BARRIER_LISTENER",
+                                "Neue Barriere erkannt: $cleanDescription"
+                            )
+
                             notificationManager.showNotification(
-                                "Neue Barriere",
-                                "Eine neue Barriere wurde erstellt."
+                                title = "Neue Barriere",
+                                body = body
                             )
                         }
 
                         DocumentChange.Type.MODIFIED -> {
+                            Log.d(
+                                "BARRIER_LISTENER",
+                                "Barriere aktualisiert: $cleanDescription"
+                            )
+
                             notificationManager.showNotification(
-                                "Barriere aktualisiert",
-                                "Eine Barriere wurde geändert."
+                                title = "Barriere aktualisiert",
+                                body = body
                             )
                         }
 
                         DocumentChange.Type.REMOVED -> {
+                            Log.d(
+                                "BARRIER_LISTENER",
+                                "Barriere gelöscht: $cleanDescription"
+                            )
+
                             notificationManager.showNotification(
-                                "Barriere gelöscht",
-                                "Eine Barriere wurde entfernt."
+                                title = "Barriere gelöscht",
+                                body = body
                             )
                         }
                     }
                 }
             }
+    }
+
+    private fun translateTag(tag: String?): String? {
+        return when (tag) {
+            "WALKING" -> "Gehen"
+            "SEEING" -> "Sehen"
+            "HEARING" -> "Hören"
+            "OTHER" -> "Sonstiges"
+            null -> null
+            else -> tag
+        }
     }
 
     fun stopListening() {
